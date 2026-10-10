@@ -1,0 +1,30 @@
+# Fariyad backend deployment (Dokploy compose) — MongoDB + sync backend +
+# control-room dashboard. Same stack as backend/docker-compose.yml, but
+# exposed through Dokploy's shared traefik network instead of host ports.
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: fariyad-backend
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URL: mongodb://mongo:27017
+      MONGO_DB: fariyad
+      PORT: 3000
+    networks:
+      - default
+      - dokploy-network
+
+volumes:
+  mongo-data:
+
+networks:
+  dokploy-network:
+    external: true
