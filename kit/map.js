@@ -8,23 +8,30 @@
 
   var LINE_COLORS = { yellow: '#ffd60a', red: '#ff4d5e', blue: '#4da3ff', violet: '#a78bfa' };
 
-  function tileUrl(pathPrefix) {
-    return function (data) {
-      if (window.__TILES__) {
-        var key = data.z + '/' + data.x + '/' + data.y;
-        return window.__TILES__[key] || 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
-      }
-      return (pathPrefix || '.') + '/vendor/leaflet/tiles/' + data.z + '/' + data.x + '/' + data.y + '.png';
-    };
+  var FALLBACK_TILE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
+
+  function tileUrl(pathPrefix, data) {
+    if (window.__TILES__) {
+      var key = data.z + '/' + data.x + '/' + data.y;
+      return window.__TILES__[key] || FALLBACK_TILE;
+    }
+    return (pathPrefix || '.') + '/vendor/leaflet/tiles/' + data.z + '/' + data.x + '/' + data.y + '.png';
   }
+
+  // L.tileLayer() takes a string pattern; we need per-tile function logic
+  // (data-URL lookup in baked builds), so subclass with a custom getTileUrl.
+  var OfflineLayer = L.TileLayer.extend({
+    getTileUrl: function (coords) {
+      return tileUrl(this.options.tilePath, coords);
+    },
+  });
 
   function baseMap(elId, opts) {
     opts = opts || {};
     var map = L.map(elId, { zoomControl: true, attributionControl: false, maxZoom: opts.maxZoom || 14, minZoom: 11 });
-    var dir = opts.tilePath || '..';
-    var layer = L.tileLayer(tileUrl(dir), {
+    var layer = new OfflineLayer({
       maxZoom: 14, minZoom: 11, bounds: [[22.90, 72.42], [23.34, 72.78]],
-      errorTileUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
+      errorTileUrl: FALLBACK_TILE, tilePath: opts.tilePath || '..',
     }).addTo(map);
     map.setView(opts.center || [23.10, 72.62], opts.zoom || 11);
     return map;

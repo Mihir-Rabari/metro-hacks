@@ -77,6 +77,8 @@
 <script src="../../kit/ai.js"></script>
 <script src="../../kit/map.js"></script>
 <script>
+/* DEV MODE: data injected by bake.py as window.__DATA__ in dist builds.
+   In dev (served over http) we fetch relative JSON once. */
 async function loadData() {
   if (window.__DATA__) return window.__DATA__;
   const base = '../../data/';
