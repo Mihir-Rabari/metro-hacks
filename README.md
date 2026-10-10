@@ -149,6 +149,33 @@ RUNBOOK.md       tonight's ops protocol + demo script + pitch
 2. Allow "install unknown apps" for your browser (one-time prompt).
 3. Install → open **Fariyad** → flip airplane mode → everything still works.
 
+## 🚦 All deliverables, tier-wise
+
+| Tier | What | Where | Offline? |
+|---|---|---|---|
+| ⭐ 1 | **FariyadNative.apk** — fully native app: framework widgets + SQLite + NB + the transformer via ONNX Runtime (C++/JNI), hand-ported SentencePiece tokenizer, **real outbox sync to the backend** | [Release · apk-latest](https://github.com/Mihir-Rabari/metro-hacks/releases/tag/apk-latest) | ✅ airplane-mode native (INTERNET only for opportunistic sync) |
+| 2 | **Fariyad.apk** — WebView edition (bundled single-file app + WASM neural engine) | same release page | ✅ zero INTERNET permission |
+| 3 | **Offline web console** — single file, double-click, `file://` safe | `dist/app.html` in the repo · live: [frozen mirror](https://diffs-ventures-cast-wit.trycloudflare.com) | ✅ |
+| 4 | **Sync backend** — Node.js + MongoDB control room: `POST /api/sync` (idempotent per-id acks), tickets/stats API, **live dashboard** | `backend/` — `docker compose up -d --build` · live demo: [adjacent-harper-spare-picture.trycloudflare.com](https://adjacent-harper-spare-picture.trycloudflare.com) | server-side (the receiving end of the offline-first contract) |
+
+## 🧾 Sync backend (Node.js + MongoDB, dockerized)
+
+The station-side server — the other half of the offline-first story. The app
+files/triases/queues **on-device**; when connectivity returns (train at a
+station), the outbox drains to `POST /api/sync`. Only server-acked ticket ids
+flip to *synced*; anything unacked **stays queued — nothing is lost, ever**.
+
+```bash
+cd backend && docker compose up -d --build   # mongo:7 + backend on :3020
+```
+
+- **API:** `POST /api/sync` (idempotent upsert by ticket id), `GET /api/tickets`,
+  `GET /api/stats` (department aggregation), `GET /health`
+- **Dashboard:** live control-room view — synced count, S1 banner, per-department
+  load bars, ticket feed with severity pills and draft replies, auto-refresh
+- **Frozen stack:** compose + Dockerfile committed; runs anywhere Docker does.
+  (`MONGO_EMBEDDED=1` runs an embedded real mongod binary for daemon-less hosts.)
+
 ## 🧠 Model benchmark (the "technical depth" receipts)
 
 Held-out set: 44 fresh complaints — Gujarati script, Hindi script, Hinglish/Gujlish,
