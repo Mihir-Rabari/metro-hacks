@@ -454,7 +454,10 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
   'use strict';
 
   function tokenize(text) {
-    var words = String(text).toLowerCase().match(/[a-z0-9]+/g) || [];
+    // NOTE: must match the trainer's regex (scripts/train_triage.py) — Gujarati
+    // (\u0A80-\u0AFF) and Devanagari (\u0900-\u097F) tokens are IN the 2832-word
+    // vocab; dropping them made pure-script text fall back to priors.
+    var words = String(text).toLowerCase().match(/[a-z0-9\u0A80-\u0AFF\u0900-\u097F]+/g) || [];
     var grams = words.slice();
     for (var i = 0; i < words.length - 1; i++) grams.push(words[i] + '_' + words[i + 1]);
     return grams;
