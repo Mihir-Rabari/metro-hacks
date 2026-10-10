@@ -55,9 +55,14 @@ fi
 rm -rf ort/x && mkdir -p ort/x
 (cd ort/x && unzip -q "../$ORT_AAR")
 cp ort/x/classes.jar ort/classes.jar
-mkdir -p nativelib/lib/arm64-v8a
-cp ort/x/jni/arm64-v8a/*.so nativelib/lib/arm64-v8a/
-echo "== ORT: $(du -sh ort/classes.jar | cut -f1) classes + $(ls nativelib/lib/arm64-v8a | wc -l) native libs (arm64-v8a)"
+# Universal APK: bundle EVERY ABI the ORT AAR ships (arm64-v8a, armeabi-v7a,
+# x86, x86_64) — arm64-only builds die on the x86_64 emulator with
+# UnsatisfiedLinkError and the neural engine silently degrades to NB-only.
+for abi in $(cd ort/x/jni && ls -d */ | tr -d '/'); do
+  mkdir -p "nativelib/lib/$abi"
+  cp "ort/x/jni/$abi"/*.so "nativelib/lib/$abi/"
+done
+echo "== ORT: $(du -sh ort/classes.jar | cut -f1) classes + $(find nativelib/lib -name '*.so' | wc -l) native libs ($(ls nativelib/lib | tr '\n' ' '))"
 
 # ---------------------------------------------------------------- compile
 rm -f res.zip unsigned.apk aligned.apk FariyadNative.apk
@@ -80,7 +85,11 @@ javac -source 11 -target 11 -classpath "$PLATFORM:ort/classes.jar" -d obj \
 # ---------------------------------------------------------------- pack
 BUILD_DIR="$(pwd)"
 (cd dexout && zip -q "$BUILD_DIR/unsigned.apk" classes.dex)
-(cd app/src/main/assets && zip -qr "$BUILD_DIR/unsigned.apk" models)
+# AssetManager resolves entries under assets/ — zip from app/src/main so the
+# APK path is assets/models/... (zipping the contents from inside assets/
+# put them at the APK ROOT, where no Android API can see them: neural engine
+# reported "NB-only" and triage/stations/replies all fell back to defaults).
+(cd app/src/main && zip -qr "$BUILD_DIR/unsigned.apk" assets)
 (cd nativelib && zip -qr "$BUILD_DIR/unsigned.apk" lib)
 
 "$BT/zipalign" -f 4 unsigned.apk aligned.apk

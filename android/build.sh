@@ -60,7 +60,10 @@ javac -source 11 -target 11 -classpath "$PLATFORM" -d obj \
 # 7) pack dex + assets into the apk (paths relative to the android/ build dir)
 BUILD_DIR="$(pwd)"
 (cd dexout && zip -q "$BUILD_DIR/unsigned.apk" classes.dex)
-(cd app/src/main/assets && zip -qr "$BUILD_DIR/unsigned.apk" www)
+# AssetManager resolves entries under assets/ — zip from app/src/main so the
+# APK path is assets/www/... (zipping from inside assets/ put www/ at the APK
+# root, where AssetServer can't serve it: white-screen on launch).
+(cd app/src/main && zip -qr "$BUILD_DIR/unsigned.apk" assets)
 
 # 8) zipalign
 "$BT/zipalign" -f 4 unsigned.apk aligned.apk
