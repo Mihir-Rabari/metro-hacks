@@ -1,0 +1,53 @@
+name: Build Native APK
+
+on:
+  push:
+    paths:
+      - 'android-native/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Build signed native APK (no WebView — native widgets + SQLite + ONNX on-device)
+        run: bash android-native/build.sh
+
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-latest
+          name: "Fariyad Android APK (auto-built)"
+          files: android-native/FariyadNative.apk
+          body: |
+            **ફરિયાદ · Fariyad NATIVE — PS-07 · Every Complaint Heard** (Metro Hacks, Road to DevFest Gandhinagar 2026)
+
+            **FariyadNative.apk is a fully native Android app — zero WebView, zero JavaScript.**
+
+            - Native framework widgets (ListView/Spinner/EditText), dark Material theme
+            - **SQLite** complaint store + sync outbox (drains when connectivity returns)
+            - Naive Bayes domain engine ported to pure Java (11 categories, <1 ms)
+            - **The HuggingFace multilingual transformer runs natively via ONNX Runtime (C++/JNI)**
+              with a hand-ported SentencePiece Unigram tokenizer — verified token-ID-exact
+              against the reference tokenizer on an 18-sentence multilingual benchmark
+              (Gujarati / Hindi / English / Gujlish). Same 86.4% ensemble, now with zero JS.
+            - Zero permissions. Airplane-mode is the norm, not the test.
+
+            ### Install (30 seconds)
+            1. Download **`FariyadNative.apk`** below.
+            2. Open it — allow "install unknown apps" for your browser (one-time).
+            3. Install → open **Fariyad** → flip airplane mode → everything still works.
+
+            `Fariyad.apk` (WebView edition) remains on this release as the backup build.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
