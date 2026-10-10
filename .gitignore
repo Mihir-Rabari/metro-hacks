@@ -1,0 +1,9 @@
+# .data/ = agent scratch space (raw Wikipedia/OSM fetches, intermediate JSON)
+.data/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+__pycache__/

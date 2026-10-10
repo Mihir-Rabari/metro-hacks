@@ -1,0 +1,1048 @@
+{
+ "meta": {
+  "note": "Interchange facts real (Wikipedia line tables); feeder route IDs synthetic; auto fares indicative"
+ },
+ "stations": {
+  "Mahatma Mandir": {
+   "facts": [
+    "Indian Railways - Gandhinagar Capital",
+    "Mahatma Mandir/Dandi Kutir events",
+    "GMRC events bus"
+   ],
+   "feeders": [
+    {
+     "route": "F12",
+     "type": "feeder-bus",
+     "to": "Dandi Kutir",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F13",
+     "type": "feeder-bus",
+     "to": "Mahatma Mandir Convention Centre",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Dandi Kutir",
+     "headwayMin": 0,
+     "typicalFare": 30
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 8,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Sector-24": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F10",
+     "type": "feeder-bus",
+     "to": "Sector 22 market",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F11",
+     "type": "feeder-bus",
+     "to": "GEB Colony",
+     "headwayMin": 20,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Sector 22 market",
+     "headwayMin": 0,
+     "typicalFare": 40
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Sector-16": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F35",
+     "type": "feeder-bus",
+     "to": "GH-4 market",
+     "headwayMin": 20,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F36",
+     "type": "feeder-bus",
+     "to": "Ch-6 circle",
+     "headwayMin": 8,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "GH-4 market",
+     "headwayMin": 0,
+     "typicalFare": 60
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Juna Sachivalaya": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F15",
+     "type": "feeder-bus",
+     "to": "Old Secretariat",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F16",
+     "type": "feeder-bus",
+     "to": "Sector 9 shops",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Old Secretariat",
+     "headwayMin": 0,
+     "typicalFare": 40
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 8,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 2
+  },
+  "Akshardham": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F16",
+     "type": "feeder-bus",
+     "to": "Akshardham Temple",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F17",
+     "type": "feeder-bus",
+     "to": "Sector 20",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Akshardham Temple",
+     "headwayMin": 0,
+     "typicalFare": 50
+    }
+   ],
+   "walkMinutes": 2
+  },
+  "Sachivalaya": {
+   "facts": [
+    "Secretariat staff transport",
+    "Sector 9/10 shared autos"
+   ],
+   "feeders": [
+    {
+     "route": "F9",
+     "type": "feeder-bus",
+     "to": "Swarnim Sankul (Secretariat)",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F10",
+     "type": "feeder-bus",
+     "to": "Indroda Park",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Swarnim Sankul (Secretariat)",
+     "headwayMin": 0,
+     "typicalFare": 40
+    }
+   ],
+   "walkMinutes": 4
+  },
+  "Sector-10A": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F37",
+     "type": "feeder-bus",
+     "to": "Sector 10 market",
+     "headwayMin": 8,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F38",
+     "type": "feeder-bus",
+     "to": "Gandhinagar Bus Stand",
+     "headwayMin": 8,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Sector 10 market",
+     "headwayMin": 0,
+     "typicalFare": 40
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 8,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 2
+  },
+  "Sector-1": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F25",
+     "type": "feeder-bus",
+     "to": "GEB",
+     "headwayMin": 8,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F26",
+     "type": "feeder-bus",
+     "to": "Sector 1-2 quarters",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "GEB",
+     "headwayMin": 0,
+     "typicalFare": 40
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 8,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 4
+  },
+  "Infocity": {
+   "facts": [
+    "Infocity IT park shuttle",
+    "AMTS/GSRTC Gandhinagar"
+   ],
+   "feeders": [
+    {
+     "route": "F31",
+     "type": "feeder-bus",
+     "to": "Infocity IT offices",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F32",
+     "type": "feeder-bus",
+     "to": "SRP campus",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Infocity IT offices",
+     "headwayMin": 0,
+     "typicalFare": 60
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Dholakuva Circle": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F29",
+     "type": "feeder-bus",
+     "to": "Sargasan",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F30",
+     "type": "feeder-bus",
+     "to": "Rail Vihar",
+     "headwayMin": 8,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Sargasan",
+     "headwayMin": 0,
+     "typicalFare": 50
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 10,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Randesan": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F28",
+     "type": "feeder-bus",
+     "to": "Randesan societies",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F29",
+     "type": "feeder-bus",
+     "to": "Bopal Road",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Randesan societies",
+     "headwayMin": 0,
+     "typicalFare": 50
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Raysan": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F30",
+     "type": "feeder-bus",
+     "to": "Raysan Road houses",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F31",
+     "type": "feeder-bus",
+     "to": "Godrej properties",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Raysan Road houses",
+     "headwayMin": 0,
+     "typicalFare": 40
+    }
+   ],
+   "walkMinutes": 2
+  },
+  "GNLU": {
+   "facts": [
+    "Violet Line (GIFT City) interchange at GNLU",
+    "GIFT City shuttles",
+    "PDEU campus"
+   ],
+   "feeders": [
+    {
+     "route": "F35",
+     "type": "feeder-bus",
+     "to": "GNLU campus",
+     "headwayMin": 20,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F36",
+     "type": "feeder-bus",
+     "to": "PDEU",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "GNLU campus",
+     "headwayMin": 0,
+     "typicalFare": 50
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 10,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 2
+  },
+  "Koba Gaam": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "local area",
+     "headwayMin": 0,
+     "typicalFare": 30
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 5,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 4
+  },
+  "Juna Koba": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F12",
+     "type": "feeder-bus",
+     "to": "Juna Koba market",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Juna Koba market",
+     "headwayMin": 0,
+     "typicalFare": 50
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 8,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 2
+  },
+  "Koba Circle": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F2",
+     "type": "feeder-bus",
+     "to": "Koba circle market",
+     "headwayMin": 20,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F3",
+     "type": "feeder-bus",
+     "to": "Ch-0",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Koba circle market",
+     "headwayMin": 0,
+     "typicalFare": 40
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 10,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Narmada Canal": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F4",
+     "type": "feeder-bus",
+     "to": "Canal-side societies",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Canal-side societies",
+     "headwayMin": 0,
+     "typicalFare": 50
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 8,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 4
+  },
+  "Tapovan Circle": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F19",
+     "type": "feeder-bus",
+     "to": "Tapovan Circle",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F20",
+     "type": "feeder-bus",
+     "to": "Vavol",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Tapovan Circle",
+     "headwayMin": 0,
+     "typicalFare": 30
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 5,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 2
+  },
+  "Vishwakarma College": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F10",
+     "type": "feeder-bus",
+     "to": "VGEC campus",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F11",
+     "type": "feeder-bus",
+     "to": "Chandkheda",
+     "headwayMin": 20,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "VGEC campus",
+     "headwayMin": 0,
+     "typicalFare": 40
+    }
+   ],
+   "walkMinutes": 2
+  },
+  "Koteshwar Road": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F30",
+     "type": "feeder-bus",
+     "to": "Koteshwar",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F31",
+     "type": "feeder-bus",
+     "to": "Motera Stadium walk",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Koteshwar",
+     "headwayMin": 0,
+     "typicalFare": 30
+    }
+   ],
+   "walkMinutes": 4
+  },
+  "Motera Stadium": {
+   "facts": [
+    "Yellow Line interchange",
+    "Ahmedabad BRTS",
+    "Stadium events crowd plan"
+   ],
+   "feeders": [
+    {
+     "route": "F19",
+     "type": "feeder-bus",
+     "to": "Narendra Modi Stadium",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F20",
+     "type": "feeder-bus",
+     "to": "VIP road",
+     "headwayMin": 20,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Narendra Modi Stadium",
+     "headwayMin": 0,
+     "typicalFare": 60
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 10,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Sabarmati": {
+   "facts": [
+    "Ahmedabad BRTS",
+    "Sabarmati HSR (under construction)",
+    "Sabarmati Riverfront"
+   ],
+   "feeders": [
+    {
+     "route": "F27",
+     "type": "feeder-bus",
+     "to": "Sabarmati Riverfront",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F28",
+     "type": "feeder-bus",
+     "to": "Sabarmati HSR (u/c)",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Sabarmati Riverfront",
+     "headwayMin": 0,
+     "typicalFare": 40
+    }
+   ],
+   "walkMinutes": 2
+  },
+  "AEC": {
+   "facts": [
+    "Ahmedabad BRTS"
+   ],
+   "feeders": [
+    {
+     "route": "F40",
+     "type": "feeder-bus",
+     "to": "AEC campus",
+     "headwayMin": 20,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F41",
+     "type": "feeder-bus",
+     "to": "Anandnagar road",
+     "headwayMin": 8,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "AEC campus",
+     "headwayMin": 0,
+     "typicalFare": 40
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Ranip": {
+   "facts": [
+    "Ahmedabad BRTS",
+    "GSRTC Bus Station"
+   ],
+   "feeders": [
+    {
+     "route": "F29",
+     "type": "feeder-bus",
+     "to": "Ranip GSRTC stand",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F30",
+     "type": "feeder-bus",
+     "to": "BRTS terminal",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Ranip GSRTC stand",
+     "headwayMin": 0,
+     "typicalFare": 40
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Vadaj": {
+   "facts": [
+    "Ahmedabad BRTS",
+    "AMTS feeder"
+   ],
+   "feeders": [
+    {
+     "route": "F26",
+     "type": "feeder-bus",
+     "to": "Vadaj bus terminal",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F27",
+     "type": "feeder-bus",
+     "to": "Usmanpura garden",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Vadaj bus terminal",
+     "headwayMin": 0,
+     "typicalFare": 40
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 5,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 4
+  },
+  "Vijay Nagar": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F12",
+     "type": "feeder-bus",
+     "to": "Vijay Nagar societies",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Vijay Nagar societies",
+     "headwayMin": 0,
+     "typicalFare": 40
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 5,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Usmanpura": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F30",
+     "type": "feeder-bus",
+     "to": "Usmanpura riverfront",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F31",
+     "type": "feeder-bus",
+     "to": "Ashram Road offices",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Usmanpura riverfront",
+     "headwayMin": 0,
+     "typicalFare": 40
+    }
+   ],
+   "walkMinutes": 4
+  },
+  "Old High Court": {
+   "facts": [
+    "Blue Line interchange",
+    "Ashram Road AMTS corridor"
+   ],
+   "feeders": [
+    {
+     "route": "F7",
+     "type": "feeder-bus",
+     "to": "Ashram Road offices",
+     "headwayMin": 20,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F8",
+     "type": "feeder-bus",
+     "to": "Gandhi Ashram (via Blue Line)",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Ashram Road offices",
+     "headwayMin": 0,
+     "typicalFare": 40
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 10,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 4
+  },
+  "Gandhigram": {
+   "facts": [
+    "Indian Railways - Gandhigram station",
+    "AMTS"
+   ],
+   "feeders": [
+    {
+     "route": "F12",
+     "type": "feeder-bus",
+     "to": "Gandhigram Rly",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F13",
+     "type": "feeder-bus",
+     "to": "Paldi area",
+     "headwayMin": 12,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Gandhigram Rly",
+     "headwayMin": 0,
+     "typicalFare": 50
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 5,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Paldi": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F27",
+     "type": "feeder-bus",
+     "to": "Paldi bus stand",
+     "headwayMin": 20,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F28",
+     "type": "feeder-bus",
+     "to": "Nehru Bridge",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Paldi bus stand",
+     "headwayMin": 0,
+     "typicalFare": 30
+    }
+   ],
+   "walkMinutes": 4
+  },
+  "Shreyas": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F25",
+     "type": "feeder-bus",
+     "to": "Shreyas crossing",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F26",
+     "type": "feeder-bus",
+     "to": "Maninagar direction",
+     "headwayMin": 20,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Shreyas crossing",
+     "headwayMin": 0,
+     "typicalFare": 60
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Rajiv Nagar": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F4",
+     "type": "feeder-bus",
+     "to": "Rajiv Nagar societies",
+     "headwayMin": 8,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Rajiv Nagar societies",
+     "headwayMin": 0,
+     "typicalFare": 40
+    }
+   ],
+   "walkMinutes": 3
+  },
+  "Jivraj Park": {
+   "facts": [],
+   "feeders": [
+    {
+     "route": "F21",
+     "type": "feeder-bus",
+     "to": "Jivraj Park",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F22",
+     "type": "feeder-bus",
+     "to": "Mahavir Nagar",
+     "headwayMin": 15,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "Jivraj Park",
+     "headwayMin": 0,
+     "typicalFare": 30
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 8,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 2
+  },
+  "APMC": {
+   "facts": [
+    "GSRTC Bus Station",
+    "APMC market autos"
+   ],
+   "feeders": [
+    {
+     "route": "F34",
+     "type": "feeder-bus",
+     "to": "APMC market",
+     "headwayMin": 10,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "F35",
+     "type": "feeder-bus",
+     "to": "GSRTC stand",
+     "headwayMin": 8,
+     "firstLast": "06:30-22:00"
+    },
+    {
+     "route": "AUTO",
+     "type": "auto-stand",
+     "to": "APMC market",
+     "headwayMin": 0,
+     "typicalFare": 50
+    },
+    {
+     "route": "E-RICK",
+     "type": "e-rickshaw",
+     "to": "nearest sectors",
+     "headwayMin": 8,
+     "typicalFare": 15
+    }
+   ],
+   "walkMinutes": 2
+  }
+ }
+}

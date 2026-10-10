@@ -1,0 +1,1207 @@
+{
+ "meta": {
+  "note": "Seeded synthetic history (30 days) for demo + team-queue warm start; see assumptions.md"
+ },
+ "faults": [
+  {
+   "id": "F-1047",
+   "ts": "2026-10-10T12:00",
+   "station": "Sector-10A",
+   "text": "Lift stuck between floors",
+   "category": "lifts_escalators",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1006",
+   "ts": "2026-10-10T11:48",
+   "station": "Narmada Canal",
+   "text": "Breaker tripping repeatedly",
+   "category": "power_traction",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1098",
+   "ts": "2026-10-10T10:14",
+   "station": "Dholakuva Circle",
+   "text": "UPS not holding charge",
+   "category": "power_traction",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1076",
+   "ts": "2026-10-10T07:28",
+   "station": "Vishwakarma College",
+   "text": "Lift stuck between floors",
+   "category": "lifts_escalators",
+   "severity": "S1",
+   "status": "assigned",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1005",
+   "ts": "2026-10-09T19:43",
+   "station": "Dholakuva Circle",
+   "text": "Card debited twice",
+   "category": "afc_gates",
+   "severity": "S3",
+   "status": "assigned",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1092",
+   "ts": "2026-10-09T16:02",
+   "station": "Tapovan Circle",
+   "text": "Staircase railing loose",
+   "category": "station_infra",
+   "severity": "S2",
+   "status": "assigned",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1058",
+   "ts": "2026-10-08T19:47",
+   "station": "Motera Stadium",
+   "text": "Staircase railing loose",
+   "category": "station_infra",
+   "severity": "S2",
+   "status": "assigned",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1081",
+   "ts": "2026-10-08T17:39",
+   "station": "Sector-10A",
+   "text": "Gate barrier stuck half open",
+   "category": "afc_gates",
+   "severity": "S2",
+   "status": "open",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1064",
+   "ts": "2026-10-08T04:05",
+   "station": "Sector-16",
+   "text": "Crowd beyond yellow line",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "assigned",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1042",
+   "ts": "2026-10-08T03:05",
+   "station": "Sector-16",
+   "text": "UPS not holding charge",
+   "category": "power_traction",
+   "severity": "S2",
+   "status": "assigned",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1031",
+   "ts": "2026-10-07T21:37",
+   "station": "Sachivalaya",
+   "text": "Lift door not closing",
+   "category": "lifts_escalators",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1114",
+   "ts": "2026-10-07T20:51",
+   "station": "Sector-16",
+   "text": "Staircase railing loose",
+   "category": "station_infra",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1072",
+   "ts": "2026-10-07T16:44",
+   "station": "Randesan",
+   "text": "Unattended bag near counter",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "open",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1027",
+   "ts": "2026-10-07T06:53",
+   "station": "Sector-1",
+   "text": "Train held at red signal",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1096",
+   "ts": "2026-10-07T04:26",
+   "station": "Koteshwar Road",
+   "text": "Wrong station announcement",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1054",
+   "ts": "2026-10-07T00:08",
+   "station": "Akshardham",
+   "text": "Track circuit failure",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1039",
+   "ts": "2026-10-06T19:03",
+   "station": "Juna Koba",
+   "text": "Wrong station announcement",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "open",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1118",
+   "ts": "2026-10-05T22:39",
+   "station": "Sector-16",
+   "text": "Axle counter fault",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "assigned",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1078",
+   "ts": "2026-10-05T18:31",
+   "station": "Motera Stadium",
+   "text": "Washroom flooded",
+   "category": "cleanliness",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1107",
+   "ts": "2026-10-05T10:33",
+   "station": "Sector-1",
+   "text": "Wrong station announcement",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1075",
+   "ts": "2026-10-05T08:47",
+   "station": "Sector-1",
+   "text": "Track circuit failure",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1043",
+   "ts": "2026-10-05T00:49",
+   "station": "Koteshwar Road",
+   "text": "Unattended bag near counter",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "open",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1094",
+   "ts": "2026-10-04T16:49",
+   "station": "Mahatma Mandir",
+   "text": "AVM not accepting notes",
+   "category": "afc_gates",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1102",
+   "ts": "2026-10-04T01:49",
+   "station": "Sector-24",
+   "text": "Axle counter fault",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "open",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1033",
+   "ts": "2026-10-03T08:55",
+   "station": "Raysan",
+   "text": "Lift stuck between floors",
+   "category": "lifts_escalators",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1023",
+   "ts": "2026-10-03T05:44",
+   "station": "GNLU",
+   "text": "Crowd beyond yellow line",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1003",
+   "ts": "2026-10-03T01:26",
+   "station": "Sector-10A",
+   "text": "L1 escalator handrail loose",
+   "category": "lifts_escalators",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1022",
+   "ts": "2026-10-02T21:06",
+   "station": "Dholakuva Circle",
+   "text": "Auto refusing meter at gate",
+   "category": "civic_tickets",
+   "severity": "S3",
+   "status": "assigned",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1011",
+   "ts": "2026-10-02T07:46",
+   "station": "Vishwakarma College",
+   "text": "Breaker tripping repeatedly",
+   "category": "power_traction",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1091",
+   "ts": "2026-10-02T06:25",
+   "station": "Dholakuva Circle",
+   "text": "Card debited twice",
+   "category": "afc_gates",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1062",
+   "ts": "2026-10-02T06:04",
+   "station": "Akshardham",
+   "text": "Dustbin overflowing",
+   "category": "cleanliness",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1044",
+   "ts": "2026-10-02T00:55",
+   "station": "Koba Circle",
+   "text": "Washroom flooded",
+   "category": "cleanliness",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1061",
+   "ts": "2026-10-01T18:01",
+   "station": "Tapovan Circle",
+   "text": "Gate 3 not scanning QR",
+   "category": "afc_gates",
+   "severity": "S2",
+   "status": "assigned",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1108",
+   "ts": "2026-10-01T16:04",
+   "station": "Tapovan Circle",
+   "text": "Escalator stopped at exit A",
+   "category": "lifts_escalators",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1035",
+   "ts": "2026-10-01T02:01",
+   "station": "Infocity",
+   "text": "Auto refusing meter at gate",
+   "category": "civic_tickets",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1105",
+   "ts": "2026-09-30T21:33",
+   "station": "Infocity",
+   "text": "Auto refusing meter at gate",
+   "category": "civic_tickets",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1045",
+   "ts": "2026-09-30T18:36",
+   "station": "Juna Sachivalaya",
+   "text": "AVM not accepting notes",
+   "category": "afc_gates",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1097",
+   "ts": "2026-09-30T15:42",
+   "station": "Koba Gaam",
+   "text": "Card debited twice",
+   "category": "afc_gates",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1040",
+   "ts": "2026-09-30T15:19",
+   "station": "Mahatma Mandir",
+   "text": "UPS not holding charge",
+   "category": "power_traction",
+   "severity": "S2",
+   "status": "assigned",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1069",
+   "ts": "2026-09-30T11:42",
+   "station": "Sector-16",
+   "text": "Unattended bag near counter",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "open",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1066",
+   "ts": "2026-09-29T22:16",
+   "station": "Narmada Canal",
+   "text": "Unattended bag near counter",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1032",
+   "ts": "2026-09-29T20:47",
+   "station": "Sachivalaya",
+   "text": "Card debited twice",
+   "category": "afc_gates",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1056",
+   "ts": "2026-09-29T10:04",
+   "station": "GNLU",
+   "text": "Breaker tripping repeatedly",
+   "category": "power_traction",
+   "severity": "S1",
+   "status": "open",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1021",
+   "ts": "2026-09-29T05:29",
+   "station": "Dholakuva Circle",
+   "text": "Track circuit failure",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1116",
+   "ts": "2026-09-29T04:00",
+   "station": "Infocity",
+   "text": "Crowd beyond yellow line",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1070",
+   "ts": "2026-09-29T01:21",
+   "station": "Raysan",
+   "text": "Platform 2 not swept",
+   "category": "cleanliness",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1048",
+   "ts": "2026-09-29T01:20",
+   "station": "Sector-1",
+   "text": "Axle counter fault",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1024",
+   "ts": "2026-09-28T06:57",
+   "station": "Koba Circle",
+   "text": "Unattended bag near counter",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1000",
+   "ts": "2026-09-27T21:53",
+   "station": "Sector-1",
+   "text": "PIDS showing garbage text",
+   "category": "station_infra",
+   "severity": "S3",
+   "status": "open",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1041",
+   "ts": "2026-09-27T11:10",
+   "station": "Koba Gaam",
+   "text": "Staircase railing loose",
+   "category": "station_infra",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1099",
+   "ts": "2026-09-27T08:07",
+   "station": "Sector-16",
+   "text": "PIDS showing garbage text",
+   "category": "station_infra",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1080",
+   "ts": "2026-09-27T06:01",
+   "station": "Sector-1",
+   "text": "Track circuit failure",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1026",
+   "ts": "2026-09-26T18:18",
+   "station": "Koba Gaam",
+   "text": "Unattended bag near counter",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1112",
+   "ts": "2026-09-26T11:13",
+   "station": "Sector-1",
+   "text": "Exit signage missing",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1117",
+   "ts": "2026-09-26T08:56",
+   "station": "Infocity",
+   "text": "Washroom flooded",
+   "category": "cleanliness",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1071",
+   "ts": "2026-09-26T07:09",
+   "station": "Koba Gaam",
+   "text": "Approach road potholes",
+   "category": "civic_tickets",
+   "severity": "S3",
+   "status": "open",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1002",
+   "ts": "2026-09-26T00:59",
+   "station": "Tapovan Circle",
+   "text": "Lift stuck between floors",
+   "category": "lifts_escalators",
+   "severity": "S1",
+   "status": "assigned",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1106",
+   "ts": "2026-09-26T00:40",
+   "station": "Akshardham",
+   "text": "Auto refusing meter at gate",
+   "category": "civic_tickets",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1019",
+   "ts": "2026-09-25T16:21",
+   "station": "GNLU",
+   "text": "Card debited twice",
+   "category": "afc_gates",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1038",
+   "ts": "2026-09-25T15:03",
+   "station": "Sector-24",
+   "text": "Exit signage missing",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "open",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1059",
+   "ts": "2026-09-25T07:23",
+   "station": "Raysan",
+   "text": "Exit signage missing",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1073",
+   "ts": "2026-09-24T20:35",
+   "station": "Mahatma Mandir",
+   "text": "Door not closing in coach 3",
+   "category": "rolling_stock",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1034",
+   "ts": "2026-09-24T11:27",
+   "station": "Dholakuva Circle",
+   "text": "AVM not accepting notes",
+   "category": "afc_gates",
+   "severity": "S3",
+   "status": "open",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1093",
+   "ts": "2026-09-24T01:19",
+   "station": "Sector-10A",
+   "text": "Door not closing in coach 3",
+   "category": "rolling_stock",
+   "severity": "S1",
+   "status": "assigned",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1049",
+   "ts": "2026-09-23T18:16",
+   "station": "Akshardham",
+   "text": "Train held at red signal",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1053",
+   "ts": "2026-09-23T15:22",
+   "station": "Koba Gaam",
+   "text": "Approach road potholes",
+   "category": "civic_tickets",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1004",
+   "ts": "2026-09-23T10:37",
+   "station": "GNLU",
+   "text": "PIDS showing garbage text",
+   "category": "station_infra",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1074",
+   "ts": "2026-09-23T10:20",
+   "station": "Sector-10A",
+   "text": "Approach road potholes",
+   "category": "civic_tickets",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1104",
+   "ts": "2026-09-23T09:05",
+   "station": "Mahatma Mandir",
+   "text": "L1 escalator handrail loose",
+   "category": "lifts_escalators",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1057",
+   "ts": "2026-09-23T06:17",
+   "station": "Koteshwar Road",
+   "text": "PIDS showing garbage text",
+   "category": "station_infra",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1050",
+   "ts": "2026-09-23T06:15",
+   "station": "Sector-10A",
+   "text": "Track circuit failure",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1017",
+   "ts": "2026-09-23T03:34",
+   "station": "Sector-10A",
+   "text": "Wrong station announcement",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1060",
+   "ts": "2026-09-23T03:30",
+   "station": "GNLU",
+   "text": "Coach 2 AC not working",
+   "category": "rolling_stock",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1030",
+   "ts": "2026-09-21T21:31",
+   "station": "GNLU",
+   "text": "Staircase railing loose",
+   "category": "station_infra",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1052",
+   "ts": "2026-09-21T20:43",
+   "station": "GNLU",
+   "text": "Wrong station announcement",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1009",
+   "ts": "2026-09-21T20:36",
+   "station": "Raysan",
+   "text": "Wrong station announcement",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "open",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1111",
+   "ts": "2026-09-21T15:19",
+   "station": "Motera Stadium",
+   "text": "Crowd beyond yellow line",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1067",
+   "ts": "2026-09-21T01:38",
+   "station": "Sachivalaya",
+   "text": "Wrong station announcement",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "assigned",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1016",
+   "ts": "2026-09-20T21:59",
+   "station": "Vishwakarma College",
+   "text": "UPS not holding charge",
+   "category": "power_traction",
+   "severity": "S2",
+   "status": "assigned",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1008",
+   "ts": "2026-09-20T10:25",
+   "station": "Sector-24",
+   "text": "Unattended bag near counter",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "open",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1029",
+   "ts": "2026-09-20T00:59",
+   "station": "Sector-16",
+   "text": "Exit signage missing",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1084",
+   "ts": "2026-09-19T16:41",
+   "station": "Sector-1",
+   "text": "PIDS showing garbage text",
+   "category": "station_infra",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1089",
+   "ts": "2026-09-19T02:55",
+   "station": "Motera Stadium",
+   "text": "Track circuit failure",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1086",
+   "ts": "2026-09-18T19:26",
+   "station": "Koba Circle",
+   "text": "Platform 2 not swept",
+   "category": "cleanliness",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1110",
+   "ts": "2026-09-18T18:31",
+   "station": "Tapovan Circle",
+   "text": "Exit signage missing",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "assigned",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1082",
+   "ts": "2026-09-18T11:48",
+   "station": "Infocity",
+   "text": "Breaker tripping repeatedly",
+   "category": "power_traction",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1013",
+   "ts": "2026-09-18T02:14",
+   "station": "Sachivalaya",
+   "text": "Wrong station announcement",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1037",
+   "ts": "2026-09-17T20:18",
+   "station": "Koba Gaam",
+   "text": "PIDS showing garbage text",
+   "category": "station_infra",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1036",
+   "ts": "2026-09-17T07:22",
+   "station": "GNLU",
+   "text": "UPS not holding charge",
+   "category": "power_traction",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1113",
+   "ts": "2026-09-17T06:34",
+   "station": "Tapovan Circle",
+   "text": "Coach 2 AC not working",
+   "category": "rolling_stock",
+   "severity": "S2",
+   "status": "assigned",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1090",
+   "ts": "2026-09-17T01:49",
+   "station": "Dholakuva Circle",
+   "text": "Water dripping on platform 1",
+   "category": "station_infra",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1055",
+   "ts": "2026-09-16T23:18",
+   "station": "Vishwakarma College",
+   "text": "Screeching brakes",
+   "category": "rolling_stock",
+   "severity": "S2",
+   "status": "assigned",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1046",
+   "ts": "2026-09-16T21:41",
+   "station": "Raysan",
+   "text": "Dustbin overflowing",
+   "category": "cleanliness",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1115",
+   "ts": "2026-09-16T19:18",
+   "station": "GNLU",
+   "text": "Gate barrier stuck half open",
+   "category": "afc_gates",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1001",
+   "ts": "2026-09-16T18:09",
+   "station": "Koba Gaam",
+   "text": "Dustbin overflowing",
+   "category": "cleanliness",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1109",
+   "ts": "2026-09-16T11:31",
+   "station": "Infocity",
+   "text": "Crowd beyond yellow line",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1014",
+   "ts": "2026-09-16T05:55",
+   "station": "Infocity",
+   "text": "Dustbin overflowing",
+   "category": "cleanliness",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1068",
+   "ts": "2026-09-16T04:27",
+   "station": "Sachivalaya",
+   "text": "Platform 2 not swept",
+   "category": "cleanliness",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1025",
+   "ts": "2026-09-15T11:24",
+   "station": "Randesan",
+   "text": "Exit signage missing",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1020",
+   "ts": "2026-09-15T06:40",
+   "station": "Sector-1",
+   "text": "Wrong station announcement",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1015",
+   "ts": "2026-09-15T03:12",
+   "station": "Sector-1",
+   "text": "Coach 2 AC not working",
+   "category": "rolling_stock",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1085",
+   "ts": "2026-09-14T22:05",
+   "station": "Sector-10A",
+   "text": "UPS not holding charge",
+   "category": "power_traction",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1018",
+   "ts": "2026-09-14T20:03",
+   "station": "Juna Koba",
+   "text": "Unattended bag near counter",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1012",
+   "ts": "2026-09-14T18:01",
+   "station": "Sector-1",
+   "text": "Door not closing in coach 3",
+   "category": "rolling_stock",
+   "severity": "S1",
+   "status": "assigned",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1101",
+   "ts": "2026-09-14T07:13",
+   "station": "Randesan",
+   "text": "Platform 2 not swept",
+   "category": "cleanliness",
+   "severity": "S3",
+   "status": "open",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1051",
+   "ts": "2026-09-14T03:28",
+   "station": "Akshardham",
+   "text": "Card debited twice",
+   "category": "afc_gates",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1010",
+   "ts": "2026-09-13T21:55",
+   "station": "Motera Stadium",
+   "text": "Gate 3 not scanning QR",
+   "category": "afc_gates",
+   "severity": "S2",
+   "status": "open",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1065",
+   "ts": "2026-09-13T16:46",
+   "station": "Juna Sachivalaya",
+   "text": "UPS not holding charge",
+   "category": "power_traction",
+   "severity": "S2",
+   "status": "assigned",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1028",
+   "ts": "2026-09-12T11:53",
+   "station": "Akshardham",
+   "text": "Escalator stopped at exit A",
+   "category": "lifts_escalators",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1119",
+   "ts": "2026-09-12T10:35",
+   "station": "Koteshwar Road",
+   "text": "Exit signage missing",
+   "category": "passenger_info",
+   "severity": "S3",
+   "status": "open",
+   "reportedBy": "Passenger (helpline)"
+  },
+  {
+   "id": "F-1103",
+   "ts": "2026-09-12T09:45",
+   "station": "Raysan",
+   "text": "Train held at red signal",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "assigned",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1079",
+   "ts": "2026-09-12T00:27",
+   "station": "Sector-10A",
+   "text": "Card debited twice",
+   "category": "afc_gates",
+   "severity": "S3",
+   "status": "open",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1083",
+   "ts": "2026-09-11T17:16",
+   "station": "GNLU",
+   "text": "Lift door not closing",
+   "category": "lifts_escalators",
+   "severity": "S2",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1077",
+   "ts": "2026-09-11T07:58",
+   "station": "Infocity",
+   "text": "Dustbin overflowing",
+   "category": "cleanliness",
+   "severity": "S3",
+   "status": "assigned",
+   "reportedBy": "Housekeeping Sup."
+  },
+  {
+   "id": "F-1100",
+   "ts": "2026-09-11T02:19",
+   "station": "Mahatma Mandir",
+   "text": "Lift door not closing",
+   "category": "lifts_escalators",
+   "severity": "S2",
+   "status": "assigned",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1087",
+   "ts": "2026-09-11T01:14",
+   "station": "Akshardham",
+   "text": "Train held at red signal",
+   "category": "signalling",
+   "severity": "S1",
+   "status": "assigned",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1063",
+   "ts": "2026-09-10T09:08",
+   "station": "Koba Gaam",
+   "text": "Lift stuck between floors",
+   "category": "lifts_escalators",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Station Controller"
+  },
+  {
+   "id": "F-1088",
+   "ts": "2026-09-10T07:54",
+   "station": "Akshardham",
+   "text": "Crowd beyond yellow line",
+   "category": "security_safety",
+   "severity": "S1",
+   "status": "open",
+   "reportedBy": "Maintenance crew"
+  },
+  {
+   "id": "F-1095",
+   "ts": "2026-09-09T20:15",
+   "station": "Randesan",
+   "text": "Breaker tripping repeatedly",
+   "category": "power_traction",
+   "severity": "S1",
+   "status": "resolved",
+   "reportedBy": "Duty CSO"
+  },
+  {
+   "id": "F-1007",
+   "ts": "2026-09-09T18:19",
+   "station": "Sector-16",
+   "text": "Approach road potholes",
+   "category": "civic_tickets",
+   "severity": "S3",
+   "status": "resolved",
+   "reportedBy": "Maintenance crew"
+  }
+ ]
+}

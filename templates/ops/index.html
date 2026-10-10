@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MetroOps Console — offline demo</title>
+<link rel="stylesheet" href="../../kit/dash.css">
+<link rel="stylesheet" href="../../kit/vendor/leaflet.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand"><div class="glyph">M</div><div><div>MetroOps Console</div><div class="sub">GMRC Yellow + Red · offline-first demo</div></div></div>
+    <div class="spacer"></div>
+    <div class="qbadge">sync queue <b id="qcount">0</b></div>
+    <div class="netpill" id="netpill"><span class="dot"></span><span id="netlabel">ONLINE</span></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="log">Fault Log</div>
+    <div class="tab" data-tab="board">Live Board</div>
+    <div class="tab" data-tab="sim">Delay Simulator</div>
+  </div>
+
+  <div class="wrap">
+    <div class="banner" id="offlinebanner">✈️ Airplane mode: everything below still works — reports queue locally and sync when the train reaches a station with signal.</div>
+
+    <!-- ================= FAULT LOG ================= -->
+    <section id="tab-log">
+      <div class="grid cols-21">
+        <div class="card">
+          <h3>Report a fault <span class="count" id="faultcount"></span></h3>
+          <label for="fstn">Station</label>
+          <select id="fstn"></select>
+          <label for="ftext">What happened? (type it like a WhatsApp message — the AI reads free text)</label>
+          <textarea id="ftext" placeholder="e.g. lift stuck between ground and concourse, passengers inside"></textarea>
+          <div id="triagebox" style="margin-top:10px"></div>
+          <div class="flex" style="margin-top:12px">
+            <button class="btn" id="fsubmit">Submit report</button>
+            <button class="btn ghost" id="fsync">Force sync attempt</button>
+            <div class="grow"></div>
+            <span class="faint" style="font-size:12px">writes to IndexedDB → outbox → syncs when online</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Recent log</h3>
+          <div class="rowlist" id="faultlist"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LIVE BOARD ================= -->
+    <section id="tab-board" style="display:none">
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Next trains &amp; crowding</h3>
+          <label for="bstn">Station</label>
+          <select id="bstn"></select>
+          <div id="boardbox" style="margin-top:12px"></div>
+        </div>
+        <div class="card">
+          <h3>Coach guidance</h3>
+          <div id="coachbox"></div>
+          <div class="note">Expected occupancy from the offline crowding model (trained in Python, tree-walked in JS). Direction &amp; hour matter: Gandhinagar → Ahmedabad is heavy at 8–10 AM.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DELAY SIMULATOR ================= -->
+    <section id="tab-sim" style="display:none">
+      <div class="grid cols-21">
+        <div class="card">
+          <h3>Knock-on delay simulator</h3>
+          <div class="flex">
+            <div class="grow"><label>Incident at</label><select id="simstn"></select></div>
+            <div class="grow"><label>Delay (min)</label><input type="number" id="simdelay" value="7" min="1" max="30"></div>
+            <div><label>&nbsp;</label><button class="btn" id="simrun">Simulate</button></div>
+          </div>
+          <canvas id="simchart" height="200"></canvas>
+          <div class="note">One delayed train holds the block; downstream stations inherit the delay and recover ~90 s per segment while headway gaps absorb the rest. Deterministic model — the same input always shows the same cascade, so it's verifiable in airplane mode.</div>
+        </div>
+        <div class="card"><h3>Impact summary</h3><div id="simsummary"></div></div>
+      </div>
+    </section>
+  </div>
+  <div class="foot">Built aboard the Gujarat Metro · Metro Hacks · Road to DevFest Gandhinagar 2026 · all data vendored offline</div>
+</div>
+
+<script src="../../kit/vendor/chart.umd.js"></script>
+<script src="../../kit/util.js"></script>
+<script src="../../kit/store.js"></script>
+<script src="../../kit/ai.js"></script>
+<script>
+/* DEV MODE: data injected by bake.py as window.__DATA__ in dist builds.
+   In dev (served over http) we fetch relative JSON once. */
+async function loadData() {
+  if (window.__DATA__) return window.__DATA__;
+  const base = '../../data/';
+  const names = ['stations', 'timetable', 'fares', 'assets', 'faults-seed', 'lastmile', 'busroutes', 'crowding'];
+  const out = {};
+  for (const n of names) out[n] = await (await fetch(base + n + '.json')).json();
+  if (window.__MODELS__) return out;
+  const m1 = await (await fetch('../../models/triage.json')).json();
+  const m2 = await (await fetch('../../models/crowding.json')).json();
+  window.__MODELS__ = { triage: m1, crowding: m2 };
+  return out;
+}
+
+(async function main() {
+  const D = await loadData();
+  const M = window.__MODELS__;
+  const U = MetroKit.util, S = MetroKit.store, AI = MetroKit.ai;
+  const yellow = D.stations.stations.filter(s => s.line === 'yellow');
+  const red = D.stations.stations.filter(s => s.line === 'red');
+  const all = D.stations.stations.filter(s => s.operational);
+
+  /* ---------- header / connectivity ---------- */
+  const pill = document.getElementById('netpill');
+  function netUI() {
+    const on = navigator.onLine;
+    pill.classList.toggle('offline', !on);
+    document.getElementById('netlabel').textContent = on ? 'ONLINE' : 'OFFLINE';
+    document.getElementById('offlinebanner').classList.toggle('show', !on);
+  }
+  S.on('queued', refreshAll);
+  S.on('drained', refreshAll);
+  window.addEventListener('online', netUI); window.addEventListener('offline', netUI);
+  function updateQ() { S.pendingCount().then(n => document.getElementById('qcount').textContent = n); }
+  function refreshAll() { updateQ(); try { renderList(); } catch (e) { console.error(e); } }
+
+  /* ---------- tabs ---------- */
+  document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    ['log', 'board', 'sim'].forEach(id => document.getElementById('tab-' + id).style.display = id === t.dataset.tab ? '' : 'none');
+  });
+
+  /* ---------- station selects ---------- */
+  const opts = all.map(s => `<option>${s.name}</option>`).join('');
+  ['fstn', 'bstn', 'simstn'].forEach(id => document.getElementById(id).innerHTML = opts);
+
+  /* ---------- live triage preview ---------- */
+  const triageBox = document.getElementById('triagebox');
+  function renderTriage(t) {
+    const conf = Math.round(t.categoryConfidence * 100);
+    triageBox.innerHTML = `
+      <div class="fault"><div class="top">
+        <span class="badge s${t.severity[1]}">${t.severity}</span>
+        <span class="stn">${t.category.replace(/_/g, ' ')}</span>
+        <span class="ts">${conf}% confidence</span></div>
+        <div class="txt">${t.text}</div>
+        <div class="meta"><span class="team">→ ${t.team}</span><span class="chip">${t.sla}</span></div>
+      </div>`;
+  }
+  const tinput = document.getElementById('ftext');
+  const liveTriage = U.debounce(() => {
+    if (tinput.value.trim().length < 6) { triageBox.innerHTML = ''; return; }
+    renderTriage(AI.triage(M.triage, tinput.value));
+  }, 250);
+  tinput.addEventListener('input', liveTriage);
+  tinput.addEventListener('keyup', liveTriage);
+  tinput.addEventListener('change', liveTriage);
+
+  /* ---------- submit fault (offline-first) ---------- */
+  document.getElementById('fsubmit').onclick = async () => {
+    const text = tinput.value.trim();
+    if (!text) return;
+    const t = AI.triage(M.triage, text);
+    const rec = { type: 'fault', station: document.getElementById('fstn').value, ...t,
+                  status: 'open', synced: navigator.onLine };
+    await S.saveRecord(rec).catch(e => console.error('save failed', e));
+    tinput.value = ''; triageBox.innerHTML = '';
+    refreshAll();
+  };
+  document.getElementById('fsync').onclick = () => S.attemptDrain().then(updateQ);
+
+  async function renderList() {
+    const mine = await S.allRecords();
+    const mineById = {}; mine.forEach(r => mineById[r.id] = r);
+    const seeded = D['faults-seed'].faults.slice(0, 40).map(f => ({ id: f.id, seeded: true, ...f }));
+    const fresh = mine.filter(r => r.type === 'fault').map(r => {
+      const seed = seeded.find(s => s.id === r.id);
+      return seed ? Object.assign({}, seed, r) : { id: r.id, ts: r.savedAt.replace('T', ' ').slice(0, 16),
+        station: r.station, text: r.text, category: r.category, severity: r.severity,
+        status: r.synced ? 'submitted' : 'queued', reportedBy: 'you', synced: r.synced };
+    });
+    const combined = fresh.concat(seeded.filter(s => !fresh.find(f => f.id === s.id)));
+    document.getElementById('faultcount').textContent = combined.length + ' entries';
+    document.getElementById('faultlist').innerHTML = combined.slice(0, 25).map(r => `
+      <div class="fault"><div class="top">
+        <span class="badge s${(r.severity || 'S3')[1]}">${r.severity || 'S3'}</span>
+        <span class="stn">${r.station || ''}</span>
+        <span class="ts">${r.ts}</span></div>
+        <div class="txt">${r.text}</div>
+        <div class="meta">
+          <span class="team">${(r.category || '').replace(/_/g, ' ')}</span>
+          ${r.synced || r.status === 'resolved' || r.status === 'submitted'
+            ? '<span class="badge synced">synced</span>' : '<span class="badge queued">queued · syncs at station</span>'}
+        </div></div>`).join('');
+  }
+
+  /* ---------- live board ---------- */
+  const boardBox = document.getElementById('boardbox');
+  const coachBox = document.getElementById('coachbox');
+  function renderBoard() {
+    const name = document.getElementById('bstn').value;
+    const st = all.find(s => s.name === name);
+    const now = U.nowIST();
+    const mins = now.getHours() * 60 + now.getMinutes();
+    const hw = U.headwayMinutes(now.getHours());
+    const trains = [0, 1, 2].map(i => {
+      const t = mins + ((hw - (mins % hw)) % hw) + i * hw;
+      return { when: U.hhmm(t), in: Math.round(t - mins) };
+    });
+    const cls = name === 'Motera Stadium' || name === 'Old High Court' ? 'interchange'
+      : ['APMC', 'Mahatma Mandir'].includes(name) ? 'terminus'
+      : ['Sachivalaya', 'Sector-10A', 'Infocity', 'GNLU', 'Gandhigram', 'Usmanpura', 'Vadaj'].includes(name) ? 'business'
+      : ['Sector-1', 'GNLU', 'Dholakuva Circle', 'Vishwakarma College', 'Sector-16', 'Akshardham', 'Juna Sachivalaya'].includes(name) ? 'institutional' : 'residential';
+    const forDir = dir => AI.crowding(M.crowding, { stationClass: cls, hour: now.getHours(), direction: dir, weekend: [0, 6].includes(now.getDay()) });
+    const cA = forDir('to_apmc'), cB = forDir('to_mahatma_mandir');
+    boardBox.innerHTML = `
+      <table class="tbl"><tr><th>Platform A · toward APMC</th><th>Platform B · toward Mahatma Mandir</th></tr>
+      <tr><td>${trains.map(t => `<div class="mono" style="font-size:18px">${t.when} <span class="dim">· in ${t.in} min</span></div>`).join('')}</td>
+      <td>${trains.map(t => `<div class="mono" style="font-size:18px">${t.when} <span class="dim">· in ${t.in} min</span></div>`).join('')}</td></tr></table>
+      <div class="note">Headway ${hw} min at this hour · clock = device time (IST in bake/dev) — no server call is made for this board.</div>`;
+    const row = c => c.coaches.map((v, i) => {
+      const lvl = U.crowdLevel(v);
+      return `<div style="flex:1;text-align:center;padding:8px;border-radius:10px;background:${lvl.color}22;border:1px solid ${lvl.color}66">
+        <div style="font-size:11px" class="dim">Coach ${i + 1}</div>
+        <div class="mono" style="font-size:18px;font-weight:700">${v}%</div>
+        <div style="font-size:10px;color:${lvl.color}">${lvl.label}</div></div>`;
+    }).join('');
+    coachBox.innerHTML = `
+      <div class="dim" style="margin-bottom:8px">Expected occupancy · toward APMC</div>
+      <div class="flex" style="gap:8px">${row(cA)}</div>
+      <div class="dim" style="margin:12px 0 8px">toward Mahatma Mandir</div>
+      <div class="flex" style="gap:8px">${row(cB)}</div>
+      <div class="note">🟢 stand here: coaches spread evenly when occupancy &lt; 60%; mid coach stays heaviest at peak.</div>`;
+  }
+  document.getElementById('bstn').onchange = renderBoard;
+
+  /* ---------- delay simulator ---------- */
+  let simChart = null;
+  document.getElementById('simrun').onclick = () => {
+    const name = document.getElementById('simstn').value;
+    const delay = +document.getElementById('simdelay').value;
+    const line = yellow.some(s => s.name === name) ? yellow : red;
+    const idx = line.findIndex(s => s.name === name);
+    const stops = line.slice(Math.max(0, idx - 1));
+    const labels = [], data = [];
+    let d = delay;
+    stops.forEach((s, i) => {
+      labels.push(i === 0 ? s.name + ' (incident)' : s.name);
+      if (i === 0) { data.push(0); return; }
+      data.push(Math.max(0, Math.round(d * 10) / 10));
+      d = Math.max(0, d - 1.5); // recovery per segment
+    });
+    if (simChart) simChart.destroy();
+    simChart = new Chart(document.getElementById('simchart'), {
+      type: 'bar',
+      data: { labels, datasets: [{ label: 'minutes late at station', data, backgroundColor: data.map(v => v > 5 ? '#ff4d5e' : v > 2 ? '#ffb340' : '#3ddc84') }] },
+      options: { plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#8b96a9', font: { size: 10 }, maxRotation: 60 }, grid: { color: '#232c3b' } }, y: { ticks: { color: '#8b96a9' }, grid: { color: '#232c3b' }, title: { display: true, text: 'min', color: '#8b96a9' } } } }
+    });
+    const affected = data.filter(v => v > 0).length;
+    const worst = Math.max(...data);
+    document.getElementById('simsummary').innerHTML = `
+      <div class="kpi bad"><div class="v">${worst}</div><div class="l">max knock-on (min)</div></div>
+      <div class="kpi warn" style="margin-top:10px"><div class="v">${affected}</div><div class="l">stations affected</div></div>
+      <div class="kpi" style="margin-top:10px"><div class="v">${data.reduce((a, b) => a + b, 0).toFixed(0)}</div><div class="l">total delay-minutes</div></div>`;
+  };
+
+  netUI(); updateQ(); renderList(); renderBoard();
+})().catch(err => {
+  console.error(err);
+  document.body.insertAdjacentHTML('afterbegin',
+    '<div class="banner show">⚠️ App init error: ' + err.message + '</div>');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+ "meta": {
+  "currency": "INR",
+  "note": "Slab pattern modeled on GMRC published structure; see assumptions.md"
+ },
+ "slabs": [
+  {
+   "upToKm": 2,
+   "fare": 5
+  },
+  {
+   "upToKm": 4,
+   "fare": 10
+  },
+  {
+   "upToKm": 8,
+   "fare": 15
+  },
+  {
+   "upToKm": 14,
+   "fare": 20
+  },
+  {
+   "upToKm": 999,
+   "fare": 25
+  }
+ ],
+ "dayPass": 50
+}

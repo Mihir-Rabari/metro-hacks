@@ -1,0 +1,413 @@
+{
+ "meta": {
+  "note": "Service model derived from GMRC public reporting patterns; see assumptions.md",
+  "firstTrain": "06:20",
+  "lastTrain": "22:00",
+  "dwellSeconds": 30,
+  "operationalWindow": "06:20-22:00",
+  "headways": [
+   {
+    "hours": "06-07,12-16",
+    "minutes": 15
+   },
+   {
+    "hours": "08-11,17-20",
+    "minutes": 10
+   },
+   {
+    "hours": "21-22",
+    "minutes": 20
+   }
+  ]
+ },
+ "lines": {
+  "yellow_to_motera": {
+   "direction": "Motera Stadium",
+   "endToEndMinutes": 50.1,
+   "stops": [
+    {
+     "station": "Mahatma Mandir",
+     "kmFromOrigin": 0.0,
+     "minFromOrigin": 0
+    },
+    {
+     "station": "Sector-24",
+     "kmFromOrigin": 0.82,
+     "minFromOrigin": 1.9
+    },
+    {
+     "station": "Sector-16",
+     "kmFromOrigin": 1.35,
+     "minFromOrigin": 3.3
+    },
+    {
+     "station": "Juna Sachivalaya",
+     "kmFromOrigin": 2.68,
+     "minFromOrigin": 6.1
+    },
+    {
+     "station": "Akshardham",
+     "kmFromOrigin": 4.17,
+     "minFromOrigin": 9.2
+    },
+    {
+     "station": "Sachivalaya",
+     "kmFromOrigin": 6.5,
+     "minFromOrigin": 13.8
+    },
+    {
+     "station": "Sector-10A",
+     "kmFromOrigin": 7.55,
+     "minFromOrigin": 16.2
+    },
+    {
+     "station": "Sector-1",
+     "kmFromOrigin": 8.62,
+     "minFromOrigin": 18.6
+    },
+    {
+     "station": "Infocity",
+     "kmFromOrigin": 9.42,
+     "minFromOrigin": 20.5
+    },
+    {
+     "station": "Dholakuva Circle",
+     "kmFromOrigin": 10.22,
+     "minFromOrigin": 22.4
+    },
+    {
+     "station": "Randesan",
+     "kmFromOrigin": 11.09,
+     "minFromOrigin": 24.4
+    },
+    {
+     "station": "Raysan",
+     "kmFromOrigin": 12.5,
+     "minFromOrigin": 27.4
+    },
+    {
+     "station": "GNLU",
+     "kmFromOrigin": 13.84,
+     "minFromOrigin": 30.3
+    },
+    {
+     "station": "Koba Gaam",
+     "kmFromOrigin": 14.68,
+     "minFromOrigin": 32.3
+    },
+    {
+     "station": "Juna Koba",
+     "kmFromOrigin": 15.51,
+     "minFromOrigin": 34.3
+    },
+    {
+     "station": "Koba Circle",
+     "kmFromOrigin": 16.83,
+     "minFromOrigin": 37.1
+    },
+    {
+     "station": "Narmada Canal",
+     "kmFromOrigin": 17.86,
+     "minFromOrigin": 39.4
+    },
+    {
+     "station": "Tapovan Circle",
+     "kmFromOrigin": 18.89,
+     "minFromOrigin": 41.7
+    },
+    {
+     "station": "Vishwakarma College",
+     "kmFromOrigin": 21.58,
+     "minFromOrigin": 46.9
+    },
+    {
+     "station": "Koteshwar Road",
+     "kmFromOrigin": 22.2,
+     "minFromOrigin": 48.5
+    },
+    {
+     "station": "Motera Stadium",
+     "kmFromOrigin": 22.82,
+     "minFromOrigin": 50.1
+    }
+   ],
+   "headwayFor": "function in util.js (10/15/20 by hour)"
+  },
+  "yellow_to_mahatma_mandir": {
+   "direction": "Mahatma Mandir",
+   "endToEndMinutes": 49.0,
+   "stops": [
+    {
+     "station": "Motera Stadium",
+     "kmFromOrigin": 0.62,
+     "minFromOrigin": 0
+    },
+    {
+     "station": "Koteshwar Road",
+     "kmFromOrigin": 1.24,
+     "minFromOrigin": 1.6
+    },
+    {
+     "station": "Vishwakarma College",
+     "kmFromOrigin": 3.93,
+     "minFromOrigin": 6.8
+    },
+    {
+     "station": "Tapovan Circle",
+     "kmFromOrigin": 4.96,
+     "minFromOrigin": 9.1
+    },
+    {
+     "station": "Narmada Canal",
+     "kmFromOrigin": 5.99,
+     "minFromOrigin": 11.4
+    },
+    {
+     "station": "Koba Circle",
+     "kmFromOrigin": 7.31,
+     "minFromOrigin": 14.2
+    },
+    {
+     "station": "Juna Koba",
+     "kmFromOrigin": 8.14,
+     "minFromOrigin": 16.2
+    },
+    {
+     "station": "Koba Gaam",
+     "kmFromOrigin": 8.98,
+     "minFromOrigin": 18.2
+    },
+    {
+     "station": "GNLU",
+     "kmFromOrigin": 10.32,
+     "minFromOrigin": 21.1
+    },
+    {
+     "station": "Raysan",
+     "kmFromOrigin": 11.73,
+     "minFromOrigin": 24.1
+    },
+    {
+     "station": "Randesan",
+     "kmFromOrigin": 12.6,
+     "minFromOrigin": 26.1
+    },
+    {
+     "station": "Dholakuva Circle",
+     "kmFromOrigin": 13.4,
+     "minFromOrigin": 28.0
+    },
+    {
+     "station": "Infocity",
+     "kmFromOrigin": 14.2,
+     "minFromOrigin": 29.9
+    },
+    {
+     "station": "Sector-1",
+     "kmFromOrigin": 15.27,
+     "minFromOrigin": 32.3
+    },
+    {
+     "station": "Sector-10A",
+     "kmFromOrigin": 16.32,
+     "minFromOrigin": 34.7
+    },
+    {
+     "station": "Sachivalaya",
+     "kmFromOrigin": 18.65,
+     "minFromOrigin": 39.3
+    },
+    {
+     "station": "Akshardham",
+     "kmFromOrigin": 20.14,
+     "minFromOrigin": 42.4
+    },
+    {
+     "station": "Juna Sachivalaya",
+     "kmFromOrigin": 21.47,
+     "minFromOrigin": 45.2
+    },
+    {
+     "station": "Sector-16",
+     "kmFromOrigin": 22.0,
+     "minFromOrigin": 46.6
+    },
+    {
+     "station": "Sector-24",
+     "kmFromOrigin": 22.82,
+     "minFromOrigin": 48.5
+    },
+    {
+     "station": "Mahatma Mandir",
+     "kmFromOrigin": 22.82,
+     "minFromOrigin": 49.0
+    }
+   ],
+   "headwayFor": "function in util.js (10/15/20 by hour)"
+  },
+  "red_to_apmc": {
+   "direction": "APMC",
+   "endToEndMinutes": 34.8,
+   "stops": [
+    {
+     "station": "Motera Stadium",
+     "kmFromOrigin": 0.0,
+     "minFromOrigin": 0
+    },
+    {
+     "station": "Sabarmati",
+     "kmFromOrigin": 1.49,
+     "minFromOrigin": 3.1
+    },
+    {
+     "station": "AEC",
+     "kmFromOrigin": 2.66,
+     "minFromOrigin": 5.7
+    },
+    {
+     "station": "Sabarmati Railway Station",
+     "kmFromOrigin": 3.58,
+     "minFromOrigin": 7.8
+    },
+    {
+     "station": "Ranip",
+     "kmFromOrigin": 4.86,
+     "minFromOrigin": 10.6
+    },
+    {
+     "station": "Vadaj",
+     "kmFromOrigin": 5.71,
+     "minFromOrigin": 12.6
+    },
+    {
+     "station": "Vijay Nagar",
+     "kmFromOrigin": 7.04,
+     "minFromOrigin": 15.4
+    },
+    {
+     "station": "Usmanpura",
+     "kmFromOrigin": 8.2,
+     "minFromOrigin": 18.0
+    },
+    {
+     "station": "Old High Court",
+     "kmFromOrigin": 9.19,
+     "minFromOrigin": 20.2
+    },
+    {
+     "station": "Gandhigram",
+     "kmFromOrigin": 10.39,
+     "minFromOrigin": 22.8
+    },
+    {
+     "station": "Paldi",
+     "kmFromOrigin": 11.61,
+     "minFromOrigin": 25.5
+    },
+    {
+     "station": "Shreyas",
+     "kmFromOrigin": 12.85,
+     "minFromOrigin": 28.2
+    },
+    {
+     "station": "Rajiv Nagar",
+     "kmFromOrigin": 14.22,
+     "minFromOrigin": 31.1
+    },
+    {
+     "station": "Jivraj Park",
+     "kmFromOrigin": 14.79,
+     "minFromOrigin": 32.6
+    },
+    {
+     "station": "APMC",
+     "kmFromOrigin": 15.73,
+     "minFromOrigin": 34.8
+    }
+   ],
+   "headwayFor": "function in util.js (10/15/20 by hour)"
+  },
+  "red_to_motera": {
+   "direction": "Motera Stadium",
+   "endToEndMinutes": 33.1,
+   "stops": [
+    {
+     "station": "APMC",
+     "kmFromOrigin": 0.94,
+     "minFromOrigin": 0
+    },
+    {
+     "station": "Jivraj Park",
+     "kmFromOrigin": 1.52,
+     "minFromOrigin": 1.5
+    },
+    {
+     "station": "Rajiv Nagar",
+     "kmFromOrigin": 2.89,
+     "minFromOrigin": 4.4
+    },
+    {
+     "station": "Shreyas",
+     "kmFromOrigin": 4.12,
+     "minFromOrigin": 7.1
+    },
+    {
+     "station": "Paldi",
+     "kmFromOrigin": 5.35,
+     "minFromOrigin": 9.8
+    },
+    {
+     "station": "Gandhigram",
+     "kmFromOrigin": 6.55,
+     "minFromOrigin": 12.4
+    },
+    {
+     "station": "Old High Court",
+     "kmFromOrigin": 7.54,
+     "minFromOrigin": 14.6
+    },
+    {
+     "station": "Usmanpura",
+     "kmFromOrigin": 8.7,
+     "minFromOrigin": 17.2
+    },
+    {
+     "station": "Vijay Nagar",
+     "kmFromOrigin": 10.02,
+     "minFromOrigin": 20.0
+    },
+    {
+     "station": "Vadaj",
+     "kmFromOrigin": 10.87,
+     "minFromOrigin": 22.0
+    },
+    {
+     "station": "Ranip",
+     "kmFromOrigin": 12.15,
+     "minFromOrigin": 24.8
+    },
+    {
+     "station": "Sabarmati Railway Station",
+     "kmFromOrigin": 13.07,
+     "minFromOrigin": 26.9
+    },
+    {
+     "station": "AEC",
+     "kmFromOrigin": 14.25,
+     "minFromOrigin": 29.5
+    },
+    {
+     "station": "Sabarmati",
+     "kmFromOrigin": 15.74,
+     "minFromOrigin": 32.6
+    },
+    {
+     "station": "Motera Stadium",
+     "kmFromOrigin": 15.74,
+     "minFromOrigin": 33.1
+    }
+   ],
+   "headwayFor": "function in util.js (10/15/20 by hour)"
+  }
+ }
+}

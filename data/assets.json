@@ -1,0 +1,2581 @@
+{
+ "meta": {
+  "note": "Synthetic inventory counts typical for elevated 2-platform GMRC stations; see assumptions.md"
+ },
+ "stations": {
+  "Mahatma Mandir": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": true
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    },
+    {
+     "id": "G11",
+     "entry": false
+    },
+    {
+     "id": "G12",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 10,
+   "cctvCameras": 18,
+   "platforms": 2
+  },
+  "Sector-24": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    },
+    {
+     "id": "E7",
+     "location": "entry up"
+    },
+    {
+     "id": "E8",
+     "location": "parking down"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 6,
+   "cctvCameras": 41,
+   "platforms": 2
+  },
+  "Sector-16": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 9,
+   "cctvCameras": 27,
+   "platforms": 2
+  },
+  "Juna Sachivalaya": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 4,
+   "cctvCameras": 48,
+   "platforms": 2
+  },
+  "Akshardham": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 8,
+   "cctvCameras": 26,
+   "platforms": 2
+  },
+  "Sachivalaya": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 6,
+   "cctvCameras": 22,
+   "platforms": 2
+  },
+  "Sector-10A": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    },
+    {
+     "id": "E7",
+     "location": "entry up"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": false
+    },
+    {
+     "id": "G04",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 4,
+   "cctvCameras": 33,
+   "platforms": 2
+  },
+  "Sector-1": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    },
+    {
+     "id": "E7",
+     "location": "entry up"
+    },
+    {
+     "id": "E8",
+     "location": "parking down"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 6,
+   "cctvCameras": 19,
+   "platforms": 2
+  },
+  "Infocity": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": false
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 10,
+   "cctvCameras": 41,
+   "platforms": 2
+  },
+  "Dholakuva Circle": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": false
+    },
+    {
+     "id": "G04",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 8,
+   "cctvCameras": 42,
+   "platforms": 2
+  },
+  "Randesan": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    },
+    {
+     "id": "E7",
+     "location": "entry up"
+    },
+    {
+     "id": "E8",
+     "location": "parking down"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 5,
+   "cctvCameras": 20,
+   "platforms": 2
+  },
+  "Raysan": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 8,
+   "cctvCameras": 42,
+   "platforms": 2
+  },
+  "GNLU": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": true
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    },
+    {
+     "id": "G11",
+     "entry": false
+    },
+    {
+     "id": "G12",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 8,
+   "cctvCameras": 41,
+   "platforms": 2
+  },
+  "Koba Gaam": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 4,
+   "cctvCameras": 47,
+   "platforms": 2
+  },
+  "Juna Koba": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": true
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    },
+    {
+     "id": "G11",
+     "entry": false
+    },
+    {
+     "id": "G12",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 10,
+   "cctvCameras": 33,
+   "platforms": 2
+  },
+  "Koba Circle": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": true
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    },
+    {
+     "id": "G11",
+     "entry": false
+    },
+    {
+     "id": "G12",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 9,
+   "cctvCameras": 21,
+   "platforms": 2
+  },
+  "Narmada Canal": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 7,
+   "cctvCameras": 47,
+   "platforms": 2
+  },
+  "Tapovan Circle": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 5,
+   "cctvCameras": 27,
+   "platforms": 2
+  },
+  "Vishwakarma College": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    },
+    {
+     "id": "E7",
+     "location": "entry up"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 6,
+   "cctvCameras": 31,
+   "platforms": 2
+  },
+  "Koteshwar Road": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    },
+    {
+     "id": "E7",
+     "location": "entry up"
+    },
+    {
+     "id": "E8",
+     "location": "parking down"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 6,
+   "cctvCameras": 32,
+   "platforms": 2
+  },
+  "Motera Stadium": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    },
+    {
+     "id": "E7",
+     "location": "entry up"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 9,
+   "cctvCameras": 18,
+   "platforms": 2
+  },
+  "Sabarmati": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": false
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 10,
+   "cctvCameras": 23,
+   "platforms": 2
+  },
+  "AEC": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    },
+    {
+     "id": "E7",
+     "location": "entry up"
+    },
+    {
+     "id": "E8",
+     "location": "parking down"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 4,
+   "cctvCameras": 27,
+   "platforms": 2
+  },
+  "Ranip": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": false
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 10,
+   "cctvCameras": 25,
+   "platforms": 2
+  },
+  "Vadaj": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": false
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 4,
+   "cctvCameras": 18,
+   "platforms": 2
+  },
+  "Vijay Nagar": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 10,
+   "cctvCameras": 41,
+   "platforms": 2
+  },
+  "Usmanpura": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": false
+    },
+    {
+     "id": "G04",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 5,
+   "cctvCameras": 24,
+   "platforms": 2
+  },
+  "Old High Court": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": false
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 10,
+   "cctvCameras": 42,
+   "platforms": 2
+  },
+  "Gandhigram": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 8,
+   "cctvCameras": 46,
+   "platforms": 2
+  },
+  "Paldi": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    },
+    {
+     "id": "G07",
+     "entry": false
+    },
+    {
+     "id": "G08",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 7,
+   "cctvCameras": 44,
+   "platforms": 2
+  },
+  "Shreyas": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": false
+    },
+    {
+     "id": "G04",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 9,
+   "cctvCameras": 25,
+   "platforms": 2
+  },
+  "Rajiv Nagar": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": false
+    },
+    {
+     "id": "G05",
+     "entry": false
+    },
+    {
+     "id": "G06",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 9,
+   "cctvCameras": 47,
+   "platforms": 2
+  },
+  "Jivraj Park": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    },
+    {
+     "id": "E4",
+     "location": "down platform B"
+    },
+    {
+     "id": "E5",
+     "location": "exit up"
+    },
+    {
+     "id": "E6",
+     "location": "exit down"
+    },
+    {
+     "id": "E7",
+     "location": "entry up"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": true
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    },
+    {
+     "id": "G11",
+     "entry": false
+    },
+    {
+     "id": "G12",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 10,
+   "cctvCameras": 41,
+   "platforms": 2
+  },
+  "APMC": {
+   "lifts": [
+    {
+     "id": "L1",
+     "location": "concourse->platform A"
+    },
+    {
+     "id": "L2",
+     "location": "concourse->platform B"
+    },
+    {
+     "id": "L3",
+     "location": "exit->concourse"
+    },
+    {
+     "id": "L4",
+     "location": "parking->concourse"
+    }
+   ],
+   "escalators": [
+    {
+     "id": "E1",
+     "location": "up platform A"
+    },
+    {
+     "id": "E2",
+     "location": "down platform A"
+    },
+    {
+     "id": "E3",
+     "location": "up platform B"
+    }
+   ],
+   "afcGates": [
+    {
+     "id": "G01",
+     "entry": true
+    },
+    {
+     "id": "G02",
+     "entry": true
+    },
+    {
+     "id": "G03",
+     "entry": true
+    },
+    {
+     "id": "G04",
+     "entry": true
+    },
+    {
+     "id": "G05",
+     "entry": true
+    },
+    {
+     "id": "G06",
+     "entry": true
+    },
+    {
+     "id": "G07",
+     "entry": true
+    },
+    {
+     "id": "G08",
+     "entry": false
+    },
+    {
+     "id": "G09",
+     "entry": false
+    },
+    {
+     "id": "G10",
+     "entry": false
+    },
+    {
+     "id": "G11",
+     "entry": false
+    },
+    {
+     "id": "G12",
+     "entry": false
+    }
+   ],
+   "pidsDisplays": 8,
+   "cctvCameras": 19,
+   "platforms": 2
+  }
+ }
+}

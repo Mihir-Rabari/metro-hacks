@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interchange Companion — offline demo</title>
+<link rel="stylesheet" href="../../kit/dash.css">
+<link rel="stylesheet" href="../../kit/vendor/leaflet.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand"><div class="glyph">🚉</div><div><div>Interchange Companion</div><div class="sub">metro → bus → doorstep · offline</div></div></div>
+    <div class="spacer"></div>
+    <div class="netpill" id="netpill"><span class="dot"></span><span id="netlabel">ONLINE</span></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="map">Map</div>
+    <div class="tab" data-tab="bus">Will I make my bus?</div>
+    <div class="tab" data-tab="fare">Fare &amp; journey</div>
+  </div>
+
+  <div class="wrap">
+    <div class="banner" id="offlinebanner">✈️ Airplane mode: the map tiles are vendored on your disk — search, routing math and fare calc all run offline.</div>
+
+    <!-- ================= MAP ================= -->
+    <section id="tab-map">
+      <div id="map" class="map"></div>
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card"><h3>Stations on tonight's ride</h3><div class="mono" style="font-size:13px" id="stncount"></div></div>
+        <div class="card"><h3>Interchanges</h3><div id="interbox"></div></div>
+        <div class="card"><h3>Trip stats</h3><div id="tripstats"></div></div>
+      </div>
+    </section>
+
+    <!-- ================= BUS CONNECTION ================= -->
+    <section id="tab-bus" style="display:none">
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Plan the connection</h3>
+          <label>I arrive by metro at</label>
+          <select id="arrstn"></select>
+          <div class="flex">
+            <div class="grow"><label>Metro ETA (arrival)</label><input type="time" id="arrtime" value="22:35"></div>
+            <div class="grow"><label>Walk to bus stop (min)</label><input type="number" id="walkmin" value="4" min="1" max="15"></div>
+          </div>
+          <div class="note">Auto-computed from each station's exit layout (lastmile.json). Change it if you walk fast 😎</div>
+        </div>
+        <div class="card">
+          <h3>Connections at this station</h3>
+          <div id="busbox"></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px"><h3>Verdict</h3><div id="verdictbox"></div></div>
+    </section>
+
+    <!-- ================= FARE ================= -->
+    <section id="tab-fare" style="display:none">
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Fare &amp; journey calculator</h3>
+          <label>From</label><select id="ffrom"></select>
+          <label>To</label><select id="fto"></select>
+          <button class="btn" id="fgo" style="margin-top:12px">Calculate</button>
+        </div>
+        <div class="card"><h3>Result</h3><div id="fresult"><span class="dim">Pick two stations.</span></div></div>
+      </div>
+    </section>
+  </div>
+  <div class="foot">Built aboard the Gujarat Metro · Metro Hacks · Road to DevFest Gandhinagar 2026 · OSM tiles vendored offline</div>
+</div>
+
+<script src="../../kit/vendor/leaflet.js"></script>
+<script src="../../kit/util.js"></script>
+<script src="../../kit/store.js"></script>
+<script src="../../kit/ai.js"></script>
+<script src="../../kit/map.js"></script>
+<script>
+async function loadData() {
+  if (window.__DATA__) return window.__DATA__;
+  const base = '../../data/';
+  const names = ['stations', 'timetable', 'fares', 'assets', 'faults-seed', 'lastmile', 'busroutes', 'crowding'];
+  const out = {};
+  for (const n of names) out[n] = await (await fetch(base + n + '.json')).json();
+  return out;
+}
+
+(async function main() {
+  const D = await loadData();
+  const U = MetroKit.util;
+  const stations = D.stations.stations;
+  const yellow = stations.filter(s => s.line === 'yellow');
+  const red = stations.filter(s => s.line === 'red');
+  const op = stations.filter(s => s.operational);
+
+  const pill = document.getElementById('netpill');
+  function netUI() {
+    const on = navigator.onLine;
+    pill.classList.toggle('offline', !on);
+    document.getElementById('netlabel').textContent = on ? 'ONLINE' : 'OFFLINE';
+    document.getElementById('offlinebanner').classList.toggle('show', !on);
+  }
+  window.addEventListener('online', netUI); window.addEventListener('offline', netUI);
+
+  document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    ['map', 'bus', 'fare'].forEach(id => document.getElementById('tab-' + id).style.display = id === t.dataset.tab ? '' : 'none');
+    if (t.dataset.tab === 'map' && window.__map) setTimeout(() => window.__map.invalidateSize(), 50);
+  });
+
+  /* ---------- map (offline tiles) ---------- */
+  if (typeof L !== 'undefined') {
+    const map = MetroKit.map.baseMap('map', { center: [23.13, 72.62], zoom: 11, tilePath: '..' });
+    MetroKit.map.drawLines(map, stations);
+    MetroKit.map.stationMarkers(map, stations);
+    window.__map = map;
+  }
+
+  document.getElementById('stncount').innerHTML =
+    `${op.length} operational stations on Yellow + Red<br>` +
+    `<span class="dim">Mahatma Mandir ⇄ APMC = ${Math.round((yellow[yellow.length - 1].kmFromStart + red[red.length - 1].kmFromStart) * 10) / 10} km one-way</span>`;
+  document.getElementById('interbox').innerHTML = ['Motera Stadium', 'Old High Court', 'Gandhigram', 'Mahatma Mandir', 'Ranip', 'APMC', 'GNLU']
+    .map(n => `<span class="chip ${['Motera Stadium', 'Old High Court', 'GNLU'].includes(n) ? 'on' : ''}">${n}</span>`).join('');
+  const totalKm = Math.round((yellow[yellow.length - 1].kmFromStart + red[red.length - 1].kmFromStart) * 10) / 10;
+  document.getElementById('tripstats').innerHTML =
+    `<div class="kpi"><div class="v">${totalKm}</div><div class="l">km end-to-end</div></div>
+     <div class="kpi good"><div class="v">₹${U.fareForKm(totalKm, D.fares)}</div><div class="l">fare (slab model)</div></div>`;
+
+  /* ---------- selects ---------- */
+  const opts = op.map(s => `<option>${s.name}</option>`).join('');
+  document.getElementById('arrstn').innerHTML = opts;
+  document.getElementById('ffrom').innerHTML = opts;
+  document.getElementById('fto').innerHTML = opts;
+  document.getElementById('fto').selectedIndex = Math.min(op.length - 1, 20);
+
+  /* ---------- will I make my bus ---------- */
+  function renderBus() {
+    const name = document.getElementById('arrstn').value;
+    const lm = D.lastmile.stations[name] || { feeders: [], facts: [], walkMinutes: 3 };
+    document.getElementById('busbox').innerHTML =
+      (lm.facts || []).map(f => `<span class="chip on">${f}</span>`).join('') || '<span class="dim">no trunk interchange listed</span><br>' +
+      lm.feeders.map(f => `<div class="fault" style="margin-top:8px"><div class="top"><span class="stn">${f.route}</span>
+        <span class="badge s3">${f.type}</span><span class="ts">${f.headwayMin ? 'every ' + f.headwayMin + ' min' : 'on demand'}</span></div>
+        <div class="txt">to ${f.to}${f.typicalFare ? ' · ₹' + f.typicalFare + ' typical' : ''}</div></div>`).join('');
+    renderVerdict(name, lm);
+  }
+  function renderVerdict(name, lm) {
+    const arrRaw = document.getElementById('arrtime').value;
+    const walk = +document.getElementById('walkmin').value || 3;
+    const atStop = U.parseHM(arrRaw) + walk;
+    const feeders = (lm.feeders || []).filter(f => f.type === 'feeder-bus');
+    const rows = feeders.map(f => {
+      const first = U.parseHM((f.firstLast || '06:30-22:00').split('-')[0]);
+      const hw = f.headwayMin || 15;
+      const next = atStop <= first ? first : first + Math.ceil((atStop - first) / hw) * hw;
+      const wait = next - atStop;
+      const missBy = U.hhmm(atStop) > '22:00' ? null : null;
+      const ok = wait <= hw;
+      return `<div class="fault"><div class="top">
+        <span class="stn mono">${U.hhmm(next)}</span>
+        <span class="badge ${ok ? 'synced' : 's1'}">${ok ? 'you make it' : 'tight / missed'}</span>
+        <span class="ts">${wait} min wait at stop</span></div>
+        <div class="txt">${f.route} → ${f.to}</div></div>`;
+    }).join('') || '<div class="dim">No feeder listed — grab an auto: fare shown in connections tab.</div>';
+    const auto = (lm.feeders || []).find(f => f.type === 'auto-stand');
+    document.getElementById('verdictbox').innerHTML = `
+      <div class="flex"><span class="badge s3">arrive</span><span class="mono">${arrRaw}</span>
+      <span class="badge s3">at stop</span><span class="mono">${U.hhmm(atStop)}</span></div>
+      <div style="margin-top:12px">${rows}</div>
+      ${auto ? `<div class="note">🛺 Auto stand at exit: ₹${auto.typicalFare} typical to ${auto.to} — no waiting math needed.</div>` : ''}`;
+  }
+  document.getElementById('arrstn').onchange = renderBus;
+  document.getElementById('arrtime').oninput = renderBus;
+  document.getElementById('walkmin').oninput = renderBus;
+
+  /* ---------- fare calculator ---------- */
+  document.getElementById('fgo').onclick = () => {
+    const a = document.getElementById('ffrom').value, b = document.getElementById('fto').value;
+    if (a === b) { document.getElementById('fresult').innerHTML = '<span class="dim">Pick two different stations.</span>'; return; }
+    const line = yellow.some(s => s.name === a) && yellow.some(s => s.name === b) ? yellow : red;
+    const km = U.kmBetween(line, a, b);
+    const stopCount = Math.abs(line.findIndex(s => s.name === a) - line.findIndex(s => s.name === b));
+    if (km === null) { document.getElementById('fresult').innerHTML = '<span class="dim">Those two are on different lines — go via Motera Stadium.</span>'; return; }
+    const fare = U.fareForKm(km, D.fares);
+    const mins = Math.round(km / 34 * 60 + stopCount * 0.5);
+    document.getElementById('fresult').innerHTML = `
+      <div class="kpis" style="margin:0">
+        <div class="kpi"><div class="v">${km}</div><div class="l">km</div></div>
+        <div class="kpi good"><div class="v">₹${fare}</div><div class="l">fare</div></div>
+        <div class="kpi"><div class="v">~${mins}</div><div class="l">min ride</div></div>
+      </div>
+      <div class="note">Straight-line distances between verified station coordinates; slab fares from the modeled GMRC pattern (assumptions.md).</div>`;
+  };
+
+  netUI(); renderBus();
+})().catch(err => {
+  console.error(err);
+  document.body.insertAdjacentHTML('afterbegin',
+    '<div class="banner show">⚠️ App init error: ' + err.message + '</div>');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+{
+ "meta": {
+  "type": "cart-regression-tree",
+  "features": [
+   "station_class",
+   "bucket",
+   "direction",
+   "weekend"
+  ],
+  "target": "expected occupancy %",
+  "trainExamples": 2200,
+  "note": "Trained offline in pure Python; inference is a JSON tree walk in the browser (airplane-mode safe)."
+ },
+ "tree": {
+  "f": "bucket",
+  "v": "late",
+  "L": {
+   "f": "weekend",
+   "v": false,
+   "L": {
+    "f": "station_class",
+    "v": "residential",
+    "L": {
+     "leaf": 10.3,
+     "n": 84
+    },
+    "R": {
+     "f": "station_class",
+     "v": "institutional",
+     "L": {
+      "leaf": 13.7,
+      "n": 48
+     },
+     "R": {
+      "leaf": 27.7,
+      "n": 130
+     }
+    }
+   },
+   "R": {
+    "f": "station_class",
+    "v": "institutional",
+    "L": {
+     "leaf": 4.0,
+     "n": 29
+    },
+    "R": {
+     "f": "station_class",
+     "v": "residential",
+     "L": {
+      "leaf": 4.8,
+      "n": 38
+     },
+     "R": {
+      "leaf": 11.0,
+      "n": 51
+     }
+    }
+   }
+  },
+  "R": {
+   "f": "bucket",
+   "v": "midday",
+   "L": {
+    "f": "station_class",
+    "v": "interchange",
+    "L": {
+     "leaf": 63.3,
+     "n": 56
+    },
+    "R": {
+     "f": "weekend",
+     "v": false,
+     "L": {
+      "leaf": 29.3,
+      "n": 540
+     },
+     "R": {
+      "leaf": 14.8,
+      "n": 238
+     }
+    }
+   },
+   "R": {
+    "f": "weekend",
+    "v": false,
+    "L": {
+     "f": "station_class",
+     "v": "interchange",
+     "L": {
+      "leaf": 76.1,
+      "n": 37
+     },
+     "R": {
+      "leaf": 52.6,
+      "n": 671
+     }
+    },
+    "R": {
+     "f": "station_class",
+     "v": "interchange",
+     "L": {
+      "leaf": 64.3,
+      "n": 25
+     },
+     "R": {
+      "leaf": 37.0,
+      "n": 253
+     }
+    }
+   }
+  }
+ },
+ "classes": [
+  "business",
+  "institutional",
+  "interchange",
+  "mixed",
+  "residential",
+  "terminus"
+ ],
+ "directions": {
+  "to_apmc": "southbound (toward Ahmedabad/APMC)",
+  "to_mahatma_mandir": "northbound (toward Gandhinagar)"
+ }
+}

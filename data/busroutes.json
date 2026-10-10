@@ -1,0 +1,245 @@
+{
+ "meta": {
+  "note": "Synthetic feeder network (F-series) for last-mile demo; headways indicative"
+ },
+ "routes": [
+  {
+   "route": "F12",
+   "from": "Mahatma Mandir",
+   "to": "Dandi Kutir",
+   "headwayMin": 15,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F10",
+   "from": "Sector-24",
+   "to": "Sector 22 market",
+   "headwayMin": 10,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F35",
+   "from": "Sector-16",
+   "to": "GH-4 market",
+   "headwayMin": 20,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F15",
+   "from": "Juna Sachivalaya",
+   "to": "Old Secretariat",
+   "headwayMin": 12,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F16",
+   "from": "Akshardham",
+   "to": "Akshardham Temple",
+   "headwayMin": 10,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F9",
+   "from": "Sachivalaya",
+   "to": "Swarnim Sankul (Secretariat)",
+   "headwayMin": 12,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F37",
+   "from": "Sector-10A",
+   "to": "Sector 10 market",
+   "headwayMin": 8,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F25",
+   "from": "Sector-1",
+   "to": "GEB",
+   "headwayMin": 8,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F31",
+   "from": "Infocity",
+   "to": "Infocity IT offices",
+   "headwayMin": 12,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F29",
+   "from": "Dholakuva Circle",
+   "to": "Sargasan",
+   "headwayMin": 10,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F28",
+   "from": "Randesan",
+   "to": "Randesan societies",
+   "headwayMin": 15,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F30",
+   "from": "Raysan",
+   "to": "Raysan Road houses",
+   "headwayMin": 10,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F35",
+   "from": "GNLU",
+   "to": "GNLU campus",
+   "headwayMin": 20,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F12",
+   "from": "Juna Koba",
+   "to": "Juna Koba market",
+   "headwayMin": 12,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F2",
+   "from": "Koba Circle",
+   "to": "Koba circle market",
+   "headwayMin": 20,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F4",
+   "from": "Narmada Canal",
+   "to": "Canal-side societies",
+   "headwayMin": 12,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F19",
+   "from": "Tapovan Circle",
+   "to": "Tapovan Circle",
+   "headwayMin": 12,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F10",
+   "from": "Vishwakarma College",
+   "to": "VGEC campus",
+   "headwayMin": 10,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F30",
+   "from": "Koteshwar Road",
+   "to": "Koteshwar",
+   "headwayMin": 12,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F19",
+   "from": "Motera Stadium",
+   "to": "Narendra Modi Stadium",
+   "headwayMin": 12,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F19",
+   "from": "Motera Stadium",
+   "to": "Narendra Modi Stadium",
+   "headwayMin": 10,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F27",
+   "from": "Sabarmati",
+   "to": "Sabarmati Riverfront",
+   "headwayMin": 12,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F40",
+   "from": "AEC",
+   "to": "AEC campus",
+   "headwayMin": 20,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F29",
+   "from": "Ranip",
+   "to": "Ranip GSRTC stand",
+   "headwayMin": 10,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F26",
+   "from": "Vadaj",
+   "to": "Vadaj bus terminal",
+   "headwayMin": 15,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F12",
+   "from": "Vijay Nagar",
+   "to": "Vijay Nagar societies",
+   "headwayMin": 10,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F30",
+   "from": "Usmanpura",
+   "to": "Usmanpura riverfront",
+   "headwayMin": 10,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F7",
+   "from": "Old High Court",
+   "to": "Ashram Road offices",
+   "headwayMin": 20,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F12",
+   "from": "Gandhigram",
+   "to": "Gandhigram Rly",
+   "headwayMin": 15,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F27",
+   "from": "Paldi",
+   "to": "Paldi bus stand",
+   "headwayMin": 20,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F25",
+   "from": "Shreyas",
+   "to": "Shreyas crossing",
+   "headwayMin": 15,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F4",
+   "from": "Rajiv Nagar",
+   "to": "Rajiv Nagar societies",
+   "headwayMin": 8,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F21",
+   "from": "Jivraj Park",
+   "to": "Jivraj Park",
+   "headwayMin": 15,
+   "service": "06:30-22:00"
+  },
+  {
+   "route": "F34",
+   "from": "APMC",
+   "to": "APMC market",
+   "headwayMin": 10,
+   "service": "06:30-22:00"
+  }
+ ]
+}
