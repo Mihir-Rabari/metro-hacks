@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fariyad · Every Complaint Heard (PS-07)</title>
+<link rel="stylesheet" href="../../kit/dash.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand"><div class="glyph">ફ</div><div><div>Fariyad <span class="dim" style="font-weight:400">· every complaint heard</span></div><div class="sub">PS-07 · GMRC grievance triage · offline-first</div></div></div>
+    <div class="spacer"></div>
+    <div class="qbadge">sync queue <b id="qcount">0</b></div>
+    <div class="netpill" id="netpill"><span class="dot"></span><span id="netlabel">ONLINE</span></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="new">File complaints</div>
+    <div class="tab" data-tab="queues">Department queues</div>
+    <div class="tab" data-tab="history">History &amp; sync</div>
+  </div>
+
+  <div class="wrap">
+    <div class="banner" id="offlinebanner">✈️ No network: complaints are still filed, triaged and queued on this device — they sync automatically when the train reaches a station with signal. Nothing is lost.</div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <!-- ================= FILE COMPLAINTS ================= -->
+    <section id="tab-new">
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Single complaint <span class="count">AI triages as you type</span></h3>
+          <label>Station</label>
+          <select id="fstn"></select>
+          <label>Complaint (Gujarati · Hindi · English · Gujlish — any mix works)</label>
+          <textarea id="ftext" placeholder="e.g. લિફ્ટ બંધ છે   |   lift band che   |   escalator not working"></textarea>
+          <div id="triagebox" style="margin-top:10px"></div>
+          <div class="flex" style="margin-top:12px">
+            <button class="btn" id="fsubmit">File complaint</button>
+            <span class="faint" style="font-size:12px">saved on-device → queue → syncs when online</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Batch intake <span class="count">paste a mixed dump — one per line</span></h3>
+          <textarea id="batchtext" style="min-height:140px" placeholder="પ્લેટફોર્મ ગંદું છે&#10;staff rude hai counter par&#10;gate not scanning my QR&#10;toilet ma pani bharyu che&#10;unattended bag near gate 2"></textarea>
+          <div class="flex" style="margin-top:10px">
+            <button class="btn ghost" id="batchsort">Sort batch</button>
+            <button class="btn" id="batchfile" disabled>File all as tickets</button>
+          </div>
+          <div id="batchbox" style="margin-top:10px"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= QUEUES ================= -->
+    <section id="tab-queues" style="display:none">
+      <div class="card" style="margin-bottom:14px"><div class="flex" style="flex-wrap:wrap" id="deptchips"></div></div>
+      <div class="grid cols-21">
+        <div class="card">
+          <h3>Queue <span class="count" id="qcount2"></span></h3>
+          <div class="rowlist" id="qlist"></div>
+        </div>
+        <div class="card">
+          <h3>Volume by department</h3>
+          <canvas id="deptchart" height="260"></canvas>
+          <div class="note">Click any complaint to expand its <b>draft reply in the complainant's language</b> — Gujarati, Hindi or English — ready to send.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HISTORY ================= -->
+    <section id="tab-history" style="display:none">
+      <div class="grid cols-21">
+        <div class="card">
+          <h3>Last 30 days <span class="count" id="hcount"></span></h3>
+          <div class="rowlist" id="histlist"></div>
+        </div>
+        <div class="card">
+          <h3>Sync status</h3>
+          <div id="syncbox"></div>
+          <button class="btn ghost" id="forcesync" style="margin-top:10px">Attempt sync now</button>
+          <div class="note">Sync is simulated on-device (the ride has no server). When connectivity returns, the outbox drains and every queued ticket flips to “synced” — the same contract a real backend would use.</div>
+          <div class="note" style="margin-top:10px"><b>Feasibility / PPP:</b> Fariyad is a thin offline layer that plugs into GMRC's existing complaint channels (app, helpline, social). A private partner runs triage + reply drafting as a per-station SaaS; GMRC keeps the data. No new hardware; works on any staff phone browser.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="foot">ફરિયાદ · Built aboard the Gujarat Metro · Metro Hacks · Road to DevFest Gandhinagar 2026 · PS-07 · fully offline</div>
+</div>
+
+<script src="../../kit/vendor/chart.umd.js"></script>
+<script src="../../kit/util.js"></script>
+<script src="../../kit/store.js"></script>
+<script src="../../kit/ai.js"></script>
+<script>
+/* DEV MODE: data injected by bake.py as window.__DATA__ in dist builds.
+   In dev (served over http) we fetch relative JSON once. */
+async function loadData() {
+  if (window.__DATA__) return window.__DATA__;
+  const base = '../../data/';
+  const names = ['stations', 'replies', 'complaints-seed', 'faults-seed', 'lastmile', 'crowding'];
+  const out = {};
+  for (const n of names) out[n] = await (await fetch(base + n + '.json')).json();
+  if (!window.__MODELS__) {
+    window.__MODELS__ = { triage: await (await fetch('../../models/triage.json')).json() };
+  }
+  return out;
+}
+
+(async function main() {
+  const D = await loadData();
+  const M = window.__MODELS__;
+  const U = MetroKit.util, S = MetroKit.store, AI = MetroKit.ai;
+  const stations = D.stations.stations.filter(s => s.operational);
+  const seed = D['complaints-seed'].complaints;
+  const R = D.replies;
+
+  /* ---------- helpers ---------- */
+  function langDetect(t) {
+    let gu = 0, hi = 0;
+    for (const ch of t) { if (ch >= '\u0A80' && ch <= '\u0AFF') gu++; else if (ch >= '\u0900' && ch <= '\u097F') hi++; }
+    if (gu > 0 && gu >= hi) return 'gu';
+    if (hi > 0) return 'hi';
+    const gujlish = /\b(che|chhe|nathi|nahi|chaltu|chalu|band|ganda|kharab|thay|thaya|gaye|gayu|bharyu|bharelu|par|ma|dagra|sev|vartan|gusse|khali|tupu|dhili|tapke)\b/i;
+    return gujlish.test(t) ? 'gu' : 'en';
+  }
+  function urgency(sev, text) {
+    let u = sev === 'S1' ? 90 : sev === 'S2' ? 60 : 30;
+    const boosts = [['trapped',10],['ફસાયા',10],['stuck',5],['child',10],['બાળક',10],['suspicious',8],
+      ['શંકાસ્પદ',8],['unattended',10],['fire',10],['આગ',10],['urgent',6],['તાત્કાલિક',6],
+      ['ભીડ',5],['crowd',5],['slippery',6],['flood',8],['rude',4]];
+    const low = text.toLowerCase();
+    for (const [k, b] of boosts) if (low.includes(k)) u += b;
+    return Math.max(1, Math.min(100, u));
+  }
+  const LANG = { gu: 'ગુજરાતી', hi: 'हिंदी', en: 'EN' };
+  function composeReply(tri, lang, station, id) {
+    const pick = (o) => o[lang] || o.en;
+    return [pick(R.openers[tri.severity]).replace('{id}', id),
+            pick(R.actions[tri.category] || {}).replace ? pick(R.actions[tri.category] || {}).replace('{station}', station) : pick(R.actions[tri.category] || {}),
+            pick(R.sla_line).replace('{sla}', tri.sla),
+            pick(R.closers)].join('\n');
+  }
+
+  /* ---------- header ---------- */
+  const pill = document.getElementById('netpill');
+  function netUI() {
+    const on = navigator.onLine;
+    pill.classList.toggle('offline', !on);
+    document.getElementById('netlabel').textContent = on ? 'ONLINE' : 'OFFLINE';
+    document.getElementById('offlinebanner').classList.toggle('show', !on);
+  }
+  window.addEventListener('online', netUI); window.addEventListener('offline', netUI);
+  S.on('queued', refreshAll);
+  S.on('drained', refreshAll);
+  function updateQ() { S.pendingCount().then(n => document.getElementById('qcount').textContent = n); }
+  function refreshAll() { updateQ(); try { renderQueues(); renderHistory(); renderKpis(); } catch (e) { console.error(e); } }
+
+  /* ---------- tabs ---------- */
+  document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    ['new', 'queues', 'history'].forEach(id => document.getElementById('tab-' + id).style.display = id === t.dataset.tab ? '' : 'none');
+  });
+
+  /* ---------- selects ---------- */
+  document.getElementById('fstn').innerHTML = stations.map(s => `<option>${s.name}</option>`).join('');
+
+  /* ---------- all complaints (seeded + mine) ---------- */
+  async function allComplaints() {
+    const mine = (await S.allRecords()).filter(r => r.type === 'complaint');
+    const mineIds = new Set(mine.map(m => m.id));
+    const seeded = seed.filter(s => !mineIds.has('SEED-' + s.id)).map(s => ({ ...s, id: 'SEED-' + s.id, seeded: true }));
+    const fresh = mine.map(m => ({
+      id: m.id, ts: (m.savedAt || '').replace('T', ' ').slice(0, 16), station: m.station || '—',
+      text: m.text, category: m.category, dept: (M.triage.teams[m.category] || '').split(' (')[0],
+      severity: m.severity, status: m.synced ? 'submitted' : 'queued', channel: m.channel || 'metro app',
+      name: m.name || 'you', lang: m.lang || langDetect(m.text || ''), urg: m.urg, synced: m.synced, seeded: false,
+    }));
+    const all = fresh.concat(seeded.map(s => ({ ...s, dept: s.dept.split(' (')[0], lang: langDetect(s.text), urg: urgency(s.severity, s.text) })));
+    return { all, fresh };
+  }
+
+  /* ---------- KPIs ---------- */
+  async function renderKpis() {
+    const { all, fresh } = await allComplaints();
+    const open = all.filter(c => c.status !== 'resolved');
+    const s1 = open.filter(c => c.severity === 'S1').length;
+    const avg = open.length ? Math.round(open.reduce((a, c) => a + (c.urg || urgency(c.severity, c.text)), 0) / open.length) : 0;
+    document.getElementById('kpis').innerHTML = `
+      <div class="kpi"><div class="v">${all.length}</div><div class="l">complaints (30d)</div></div>
+      <div class="kpi bad"><div class="v">${s1}</div><div class="l">S1 open</div></div>
+      <div class="kpi warn"><div class="v">${fresh.filter(f => !f.synced).length}</div><div class="l">awaiting sync</div></div>
+      <div class="kpi"><div class="v">${avg}</div><div class="l">avg urgency</div></div>`;
+  }
+
+  /* ---------- single complaint ---------- */
+  const tinput = document.getElementById('ftext');
+  const triageBox = document.getElementById('triagebox');
+  function renderTriage(t, urg, lang) {
+    const conf = Math.round(t.categoryConfidence * 100);
+    triageBox.innerHTML = `
+      <div class="fault"><div class="top">
+        <span class="badge s${t.severity[1]}">${t.severity}</span>
+        <span class="stn">${t.category.replace(/_/g, ' ')}</span>
+        <span class="chip on">urgency ${urg}</span>
+        <span class="chip">${LANG[lang]}</span>
+        <span class="ts">${conf}% conf</span></div>
+        <div class="txt">${t.text}</div>
+        <div class="meta"><span class="team">→ ${t.team}</span><span class="chip">${t.sla}</span></div>
+      </div>`;
+  }
+  const liveTriage = U.debounce(() => {
+    if (tinput.value.trim().length < 6) { triageBox.innerHTML = ''; return; }
+    const t = AI.triage(M.triage, tinput.value);
+    renderTriage(t, urgency(t.severity, tinput.value), langDetect(tinput.value));
+  }, 250);
+  tinput.addEventListener('input', liveTriage);
+  tinput.addEventListener('keyup', liveTriage);
+
+  document.getElementById('fsubmit').onclick = async () => {
+    const text = tinput.value.trim();
+    if (!text) return;
+    const t = AI.triage(M.triage, text);
+    const lang = langDetect(text);
+    const rec = { type: 'complaint', station: document.getElementById('fstn').value, channel: 'metro app',
+                  lang, urg: urgency(t.severity, text), ...t, synced: navigator.onLine };
+    await S.saveRecord(rec).catch(e => console.error('save failed', e));
+    tinput.value = ''; triageBox.innerHTML = '';
+    refreshAll();
+  };
+
+  /* ---------- batch ---------- */
+  let batchRows = [];
+  function triageOne(text) {
+    const t = AI.triage(M.triage, text);
+    return { text, ...t, urg: urgency(t.severity, text), lang: langDetect(text) };
+  }
+  document.getElementById('batchsort').onclick = () => {
+    const lines = document.getElementById('batchtext').value.split('\n').map(s => s.trim()).filter(s => s.length > 3);
+    if (!lines.length) return;
+    batchRows = lines.map(triageOne).sort((a, b) => b.urg - a.urg);
+    document.getElementById('batchbox').innerHTML = batchRows.map(r => `
+      <div class="fault"><div class="top">
+        <span class="badge s${r.severity[1]}">${r.severity}</span>
+        <span class="stn">${r.category.replace(/_/g, ' ')}</span>
+        <span class="chip on">${r.urg}</span><span class="chip">${LANG[r.lang]}</span></div>
+        <div class="txt">${r.text}</div>
+        <div class="meta"><span class="team">${r.team}</span></div></div>`).join('');
+    document.getElementById('batchfile').disabled = false;
+  };
+  document.getElementById('batchfile').onclick = async () => {
+    const station = document.getElementById('fstn').value;
+    let ok = 0, failed = 0;
+    for (const r of batchRows) {
+      try {
+        await S.saveRecord({ type: 'complaint', station, channel: 'batch intake', lang: r.lang, urg: r.urg,
+          text: r.text, category: r.category, severity: r.severity, team: r.team, sla: r.sla, synced: navigator.onLine });
+        ok++;
+      } catch (e) { failed++; console.error('batch save failed:', r.text, e); }
+      await new Promise(res => setTimeout(res, 60)); // let the drain settle between writes
+    }
+    document.getElementById('batchbox').innerHTML =
+      `<div class="note">Filed ${ok} of ${ok + failed} complaints${failed ? ' — ' + failed + ' failed, see console' : ' ✓ queued for sync'}.</div>`;
+    batchRows = [];
+    document.getElementById('batchtext').value = '';
+    document.getElementById('batchfile').disabled = true;
+    refreshAll();
+  };
+
+  /* ---------- queues ---------- */
+  let deptChart = null, activeDept = 'all', expanded = null;
+  async function renderQueues() {
+    const { all } = await allComplaints();
+    const open = all.filter(c => c.status !== 'resolved');
+    const counts = {};
+    open.forEach(c => { counts[c.category] = (counts[c.category] || 0) + 1; });
+    const cats = Object.keys(M.triage.teams);
+    const order = ['security_safety', 'staff_behaviour', 'afc_gates', 'lifts_escalators', 'cleanliness',
+                   'rolling_stock', 'signalling', 'station_infra', 'power_traction', 'passenger_info', 'civic_tickets'];
+    const shown = order.filter(c => cats.includes(c));
+    document.getElementById('deptchips').innerHTML =
+      `<span class="chip ${activeDept === 'all' ? 'on' : ''}" data-d="all">All ${open.length}</span>` +
+      shown.map(c => `<span class="chip ${activeDept === c ? 'on' : ''}" data-d="${c}">${c.replace(/_/g, ' ')} ${counts[c] || 0}</span>`).join('');
+    document.querySelectorAll('#deptchips .chip').forEach(ch => ch.onclick = () => { activeDept = ch.dataset.d; renderQueues(); });
+
+    const list = open.filter(c => activeDept === 'all' || c.category === activeDept)
+      .sort((a, b) => (b.urg || 0) - (a.urg || 0));
+    document.getElementById('qcount2').textContent = list.length + ' open';
+    document.getElementById('qlist').innerHTML = list.map(c => `
+      <div class="fault" data-id="${c.id}">
+        <div class="top"><span class="badge s${c.severity[1]}">${c.severity}</span>
+          <span class="stn">${c.station}</span>
+          <span class="chip on">${c.urg}</span><span class="chip">${LANG[c.lang] || 'EN'}</span>
+          <span class="ts">${c.ts || ''}</span></div>
+        <div class="txt">${c.text}</div>
+        <div class="meta"><span class="team">${(c.category || '').replace(/_/g, ' ')}</span>
+          ${c.seeded || c.synced ? '<span class="badge synced">synced</span>' : '<span class="badge queued">queued</span>'}</div>
+        ${expanded === c.id ? `<div style="margin-top:10px;background:var(--bg);border:1px dashed var(--yellow-dim);border-radius:10px;padding:10px">
+          <div class="dim" style="font-size:11px;margin-bottom:6px">DRAFT REPLY (${LANG[c.lang] || 'EN'}) — ready to send</div>
+          <div style="white-space:pre-wrap;font-size:13px">${composeReply({severity: c.severity, category: c.category, sla: M.triage.sla[c.severity] || ''}, c.lang || 'en', c.station, c.id.replace('SEED-', ''))}</div></div>` : ''}
+      </div>`).join('');
+    document.querySelectorAll('#qlist .fault').forEach(f => f.onclick = () => {
+      const id = f.dataset.id;
+      expanded = expanded === id ? null : id;
+      renderQueues();
+    });
+
+    const chartCats = shown, chartData = chartCats.map(c => counts[c] || 0);
+    if (deptChart) deptChart.destroy();
+    deptChart = new Chart(document.getElementById('deptchart'), {
+      type: 'bar',
+      data: { labels: chartCats.map(c => c.replace(/_/g, ' ')), datasets: [{ data: chartData,
+        backgroundColor: chartData.map((v, i) => ['security_safety', 'signalling'].includes(chartCats[i]) && v ? '#ff4d5e' : v > 5 ? '#ffb340' : '#3ddc84') }] },
+      options: { indexAxis: 'y', plugins: { legend: { display: false } },
+        scales: { x: { ticks: { color: '#8b96a9' }, grid: { color: '#232c3b' } }, y: { ticks: { color: '#8b96a9', font: { size: 10 } }, grid: { display: false } } } }
+    });
+  }
+
+  /* ---------- history ---------- */
+  async function renderHistory() {
+    const { all } = await allComplaints();
+    document.getElementById('hcount').textContent = all.length + ' entries';
+    document.getElementById('histlist').innerHTML = all.slice(0, 30).map(c => `
+      <div class="fault"><div class="top"><span class="badge s${c.severity[1]}">${c.severity}</span>
+        <span class="stn">${c.station}</span><span class="ts">${c.ts || ''}</span></div>
+      <div class="txt">${c.text}</div>
+      <div class="meta"><span class="team">${(c.category || '').replace(/_/g, ' ')}</span>
+        <span class="chip">${c.channel || ''}</span>
+        ${c.status === 'resolved' ? '<span class="badge synced">resolved</span>' : c.status === 'assigned' ? '<span class="badge s3">assigned</span>' : '<span class="badge s1">open</span>'}
+        ${c.seeded || c.synced ? '' : '<span class="badge queued">queued</span>'}</div></div>`).join('');
+    const { fresh } = await allComplaints();
+    const unSynced = fresh.filter(f => !f.synced).length;
+    document.getElementById('syncbox').innerHTML = `
+      <div class="kpi ${unSynced ? 'warn' : 'good'}"><div class="v">${unSynced}</div><div class="l">queued for sync</div></div>
+      <div class="kpi" style="margin-top:10px"><div class="v">${fresh.length}</div><div class="l">filed this session</div></div>`;
+  }
+  document.getElementById('forcesync').onclick = () => S.attemptDrain().then(refreshAll);
+
+  netUI(); refreshAll();
+})().catch(err => {
+  console.error(err);
+  document.body.insertAdjacentHTML('afterbegin',
+    '<div class="banner show">⚠️ App init error: ' + err.message + '</div>');
+});
+</script>
+</body>
+</html>

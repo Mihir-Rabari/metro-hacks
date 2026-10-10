@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "note": "Draft-reply composition blocks. Language follows the complainant's detected script. {station}, {id}, {sla} are filled at generation time. Keep replies respectful, specific, and short enough to send over SMS/WhatsApp.",
+    "languages": ["gu", "hi", "en"]
+  },
+  "openers": {
+    "S1": {
+      "en": "URGENT — your complaint has been escalated to the control room (Ticket {id}). Safety teams are being dispatched now.",
+      "gu": "તાત્કાલિક — આપની ફરિયાદ કંટ્રોલ રૂમને મોકલી દેવાઈ છે (ટિકિટ {id}). સુરક્ષા ટીમ તરત મોકલવામાં આવી રહી છે.",
+      "hi": "अति आवश्यक — आपकी शिकायत कंट्रोल रूम को भेज दी गई है (टिकट {id})। सुरक्षा टीम तुरंत भेजी जा रही है।"
+    },
+    "S2": {
+      "en": "Thank you for reporting this (Ticket {id}). Your complaint has been routed for same-shift action.",
+      "gu": "જણાવવા બદલ આભાર (ટિકિટ {id}). આપની ફરિયાદ આજની શિફ્ટમાં તાત્કાલિક કાર્યવાહી માટે મોકલવામાં આવી છે.",
+      "hi": "सूचित करने के लिए धन्यवाद (टिकट {id})। आपकी शिकायत आज की शिफ्ट में कार्रवाई हेतु भेजी गई है।"
+    },
+    "S3": {
+      "en": "We have noted your complaint (Ticket {id}). It has been added to the daily maintenance queue.",
+      "gu": "આપની ફરિયાદ નોંધાઈ ગઈ છે (ટિકિટ {id}). તે દૈનિક જાળવણી યાદીમાં ઉમેરવામાં આવી છે.",
+      "hi": "आपकी शिकायत दर्ज कर ली गई है (टिकट {id})। इसे दैनिक अनुरक्षण सूची में जोड़ा गया है।"
+    }
+  },
+  "actions": {
+    "lifts_escalators": {
+      "en": "The Lifts & Escalators crew will inspect the equipment at {station}. If anyone is trapped, call our helpline immediately — do not attempt self-rescue.",
+      "gu": "{station} પર લિફ્ટ-એસ્કલેટર ટીમ તપાસ કરશે. જો કોઈ અંદર ફસાયું હોય તો તાત્કાલિક હેલ્પલાઇન પર ફોન કરો.",
+      "hi": "{station} पर लिफ्ट-एस्कलेटर टीम जांच करेगी। यदि कोई अंदर फंसा हो तो तुरंत हेल्पलाइन पर कॉल करें।"
+    },
+    "afc_gates": {
+      "en": "The ticketing team will check the gates/machines at {station}. If you were overcharged, the amount will be reversed to your card within 48 hours.",
+      "gu": "{station} પર ટિકિટિંગ ટીમ ગેટ/મશીન તપાસ કરશે. વધુ પૈસા કપાયા હોય તો 48 કલાકમાં કાર્ડમાં પરત થશે.",
+      "hi": "{station} पर टिकटिंग टीम गेट/मशीन की जांच करेगी। अधिक राशि कटी हो तो 48 घंटे में कार्ड में वापस होगी।"
+    },
+    "cleanliness": {
+      "en": "Housekeeping staff at {station} have been assigned to fix this on priority.",
+      "gu": "{station} ની સફાઈ ટીમને આ કામ પ્રાથમિકતાથી સોંપવામાં આવ્યું છે.",
+      "hi": "{station} की सफाई टीम को यह काम प्राथमिकता पर सौंपा गया है।"
+    },
+    "security_safety": {
+      "en": "Security at {station} has been alerted. Please stay clear of the area and follow staff instructions.",
+      "gu": "{station} ની સુરક્ષા ટીમને સૂચના આપવામાં આવી છે. આ વિસ્તારથી દૂર રહો અને સ્ટાફના સૂચન માનો.",
+      "hi": "{station} की सुरक्षा टीम को सतर्क किया गया है। कृपया उस क्षेत्र से दूर रहें और स्टाफ के निर्देश मानें।"
+    },
+    "staff_behaviour": {
+      "en": "This has been reported to the Station Manager and HR for review. We take staff conduct seriously and will follow up with you.",
+      "gu": "આ બાબત સ્ટેશન મેનેજર અને HR ને જણાવવામાં આવી છે. સ્ટાફના વર્તન અંગે અમે સંવેદનશીલ છીએ.",
+      "hi": "यह मामला स्टेशन मैनेजर और HR को बताया गया है। हम स्टाफ आचरण को गंभीरता से लेते हैं।"
+    },
+    "rolling_stock": {
+      "en": "The maintenance crew will inspect the train at the next terminus. The affected coach will be taken out of service if needed.",
+      "gu": "જાળવણી ટીમ આગામી ટર્મિનસ પર ટ્રેન તપાસ કરશે. જરૂર પડે તો કોચ સેવામાંથી બાકાત રખાશે.",
+      "hi": "मरम्मत टीम अगले टर्मिनस पर ट्रेन की जांच करेगी। आवश्यकता पड़ने पर कोच सेवा से हटाया जाएगा।"
+    },
+    "signalling": {
+      "en": "Signalling engineers have been informed; affected trains will be regulated until the fault is cleared.",
+      "gu": "સિગ્નલિંગ એન્જિનિયરોને જણાવવામાં આવ્યું છે; ખામી દૂર થાય ત્યાં સુધી ટ્રેન નિયંત્રિત ચાલશે.",
+      "hi": "सिग्नलिंग इंजीनियरों को सूचित किया गया है; दोष ठीक होने तक ट्रेनें नियंत्रित चलेंगी।"
+    },
+    "station_infra": {
+      "en": "Station maintenance at {station} will barricade and repair the affected area.",
+      "gu": "{station} ની જાળવણી ટીમ આ વિસ્તારને રિપેર કરશે અને અસ્થાયી રીતે બંધ રાખશે.",
+      "hi": "{station} की मरम्मत टीम प्रभावित क्षेत्र की मरम्मत करेगी।"
+    },
+    "power_traction": {
+      "en": "The electrical crew has been dispatched; backup power arrangements are being checked.",
+      "gu": "ઇલેક્ટ્રિકલ ટીમ મોકલવામાં આવી છે; બેકઅપ વીજળી વ્યવસ્થા ચકાસાઈ રહી છે.",
+      "hi": "बिजली टीम भेज दी गई है; बैकअप विद्युत्ता व्यवस्था की जांच जारी है।"
+    },
+    "passenger_info": {
+      "en": "The station operations team will correct the announcement/display at {station}.",
+      "gu": "સ્ટેશન ઓપરેશન ટીમ {station} પર જાહેરાત/ડિસ્પ્લે સુધારશે.",
+      "hi": "स्टेशन संचालन टीम {station} पर घोषणा/डिस्प्ले ठीक करेगी।"
+    },
+    "civic_tickets": {
+      "en": "The Station Manager will coordinate with the municipal team for the area outside {station}.",
+      "gu": "સ્ટેશન મેનેજર {station} ની બહારના વિસ્તાર માટે મહાનગરપાલિકા ટીમનો સંપર્ક કરશે.",
+      "hi": "स्टेशन मैनेजर {station} के बाहर के क्षेत्र के लिए नगरपालिका टीम से समन्वय करेंगे।"
+    }
+  },
+  "closers": {
+    "en": "We will update you once resolved. — GMRC Passenger Relations",
+    "gu": "ઉકેલ મળ્યા પછી આપને જણાવવામાં આવશે. — GMRC પેસેન્જર સંબંધ",
+    "hi": "समाधान के बाद आपको सूचित किया जाएगा। — GMRC यात्री संबंध"
+  },
+  "sla_line": {
+    "en": "Action window: {sla}",
+    "gu": "કાર્યવાહી સમય: {sla}",
+    "hi": "कार्रवाई समय: {sla}"
+  }
+}

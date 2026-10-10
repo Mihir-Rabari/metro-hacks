@@ -33,11 +33,23 @@
     return db.transaction(store, mode).objectStore(store);
   }
 
-  function put(store, obj) {
+  function put(store, obj, tries) {
+    tries = tries === undefined ? 3 : tries;
     return new Promise(function (resolve, reject) {
-      var r = tx(store, 'readwrite').put(obj);
+      var r;
+      try {
+        r = tx(store, 'readwrite').put(obj);
+      } catch (syncErr) {
+        // transaction creation can fail transiently during concurrent drains
+        if (tries > 1) { setTimeout(function () { put(store, obj, tries - 1).then(resolve, reject); }, 40); return; }
+        console.error('put tx failed', syncErr);
+        return reject(syncErr);
+      }
       r.onsuccess = function () { resolve(r.result); };
-      r.onerror = function () { reject(r.error); };
+      r.onerror = function () {
+        if (tries > 1) { setTimeout(function () { put(store, obj, tries - 1).then(resolve, reject); }, 40); return; }
+        reject(r.error);
+      };
     });
   }
 
@@ -75,7 +87,9 @@
     record.savedAt = new Date().toISOString();
     return open().then(function () {
       return put(STORE, record).then(function () {
-        return put(OUTBOX, { envelopeId: undefined, recordId: record.id, payload: record,
+        // NOTE: envelopeId is omitted — the store's autoIncrement supplies it.
+        // An explicit undefined keyPath value throws DataError in Chrome.
+        return put(OUTBOX, { recordId: record.id, payload: record,
                              queuedAt: new Date().toISOString() });
       });
     }).then(function () {

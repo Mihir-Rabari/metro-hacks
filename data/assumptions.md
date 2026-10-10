@@ -54,3 +54,11 @@ Everything runs from a single baked file (`dist/ops.html` / `dist/city.html`): n
 fetch(), no fonts, tiles inlined. Verified by `scripts/bake.py` asserting zero external refs.
 Judges can flip airplane mode — the app *notices* (online/offline events) and shows the
 queue draining when connectivity returns.
+
+## PS-07 additions (built onboard, 10 Oct 2026)
+
+- `models/triage.json` — extended to **11 categories** (incl. *staff behaviour* from the brief) and **multilingual**: Gujarati script, Hindi, and romanized "Gujlish" complaint phrasing. 1,248 training examples. Verified probes: `લિફ્ટ બંધ છે` → lifts, `શંકાસ્પદ બેગ` → S1 security, `lift band che` → lifts, `लिफ्ट बंद है` → lifts.
+- `data/replies.json` — draft-reply composition blocks authored in Gujarati, Hindi and English. Language selection follows the complainant's detected script; Gujlish (romanized Gujarati) receives a Gujarati-script reply.
+- `data/complaints-seed.json` — 150-entry, 30-day mixed-language history (39 Gujarati-script, 12 Hindi-script, rest English/Gujlish) mirroring the channels in the brief (app, WhatsApp, email, paper, social, call center).
+- Urgency score (0–100): severity base (S1=90, S2=60, S3=30) + keyword boosts (trapped/ફસાયા, child/બાળક, suspicious/શંકાસ્પદ, unattended, fire/આગ, crowd/ભીડ, slippery …), capped 100.
+- Sync outbox: records queue locally in IndexedDB and drain when `navigator.onLine` returns true — the "sync at station" pattern from the brief. (Verified: batch of 5 → all queued → all drained → synced badges flip.)

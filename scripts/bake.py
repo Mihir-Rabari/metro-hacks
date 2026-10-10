@@ -16,7 +16,7 @@ import re
 import sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-DATA_FILES = ['stations', 'timetable', 'fares', 'assets', 'faults-seed', 'lastmile', 'busroutes', 'crowding']
+DATA_FILES = ['stations', 'timetable', 'fares', 'assets', 'faults-seed', 'lastmile', 'busroutes', 'crowding', 'replies', 'complaints-seed']
 
 def read(path):
     with open(os.path.join(ROOT, path), encoding='utf-8') as f:
@@ -54,7 +54,7 @@ def inline_assets(html, template):
         print(f'  inlined {len(tiles)} map tiles as base64')
 
     # ---- vendor + kit scripts, in dependency order ----
-    vendor = ['chart.umd.js'] if template == 'ops' else ['leaflet.js']
+    vendor = ['chart.umd.js'] if template in ('ops', 'ps07') else ['leaflet.js']
     kit = ['util.js', 'store.js', 'ai.js'] + (['map.js'] if template == 'city' else [])
     scripts = []
     for v in vendor:
@@ -89,11 +89,13 @@ def main():
     fetches = re.findall(r'fetch\(\s*[\'"][^\'"]*https?://', out)
     assert not fetches, f'remote fetch() calls remain: {fetches}'
     os.makedirs(os.path.join(ROOT, 'dist'), exist_ok=True)
-    dest = os.path.join(ROOT, 'dist', f'{template}.html')
+    # The PS-07 product bakes to dist/app.html — the artifact demoed to judges.
+    fname = 'app.html' if template == 'ps07' else f'{template}.html'
+    dest = os.path.join(ROOT, 'dist', fname)
     with open(dest, 'w', encoding='utf-8') as f:
         f.write(out)
     size = os.path.getsize(dest) / 1024
-    print(f'BAKED dist/{template}.html  ({size:.0f} KB)  external network refs: 0')
+    print(f'BAKED dist/{fname}  ({size:.0f} KB)  external network refs: 0')
 
 if __name__ == '__main__':
     main()
