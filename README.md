@@ -1,83 +1,85 @@
-# 🚇 Metro Hacks — Road to DevFest Gandhinagar 2026
+# 🚇 ફરિયાદ · Fariyad — Every Complaint Heard (PS-07)
 
-Built **on board the Gujarat Metro** (Mahatma Mandir ⇄ APMC, 10 Oct 2026) for the
-first-ever hackathon on a running metro train in Gujarat. Solo build.
+**Metro Hacks — Road to DevFest Gandhinagar 2026**, built on board the Gujarat
+Metro (Mahatma Mandir ⇄ APMC, 10 Oct 2026). First-ever hackathon on a running
+metro train in Gujarat. Solo build.
 
-**This repo is an offline-first transit toolkit**: every asset needed to demo with
-airplane mode ON is vendored into the repository itself — real station data for the
-actual ride, trained AI models that run in-browser, offline map tiles, and two
-working prototype flows (one per track) that can be morphed into the final
-problem solution the moment the problem statement drops.
+**Problem chosen: PS-07 · Every Complaint Heard** (Metro Operations · **Offline operation: Required** — judges test it in airplane mode).
 
-## 🎯 Why this shape
+> Passenger complaints arrive through multiple channels and languages, and urgent
+> ones get buried. A tool that sorts a mixed batch of complaints into department
+> queues with urgency scores and draft replies in the complainant's language.
+> It must work on-device and sync when connectivity returns.
 
-The brief scores: relevance, working prototype, **resilience (airplane-mode demo)**,
-technical depth (AI doing meaningful work), feasibility. Every choice below maps
-to a scoring line:
+**Fariyad** (Gujarati for "grievance") does exactly that, in one self-contained file:
 
-| Choice | Scores |
+| Deliverable | Fariyad |
 |---|---|
-| Single-file baked demo (`dist/*.html`) — double-click, zero network | Resilience |
-| Naive Bayes fault triage trained offline, inference in JS | Technical depth |
-| IndexedDB + outbox: reports queue offline, drain when signal returns ("sync at station") | Resilience + relevance |
-| Real 36-station dataset for tonight's actual route, Gujarati names included | Relevance |
-| `data/assumptions.md` — what's real vs. modeled, per field | Feasibility + the brief's own "explain your assumptions" |
+| Sort a **mixed batch** (app, social, email, paper; Gujarati · Hindi · English · Gujlish) | Batch intake: paste lines in any script → triaged → filed |
+| Into **department queues** | 11 queues (safety, cleanliness, fare, lifts, staff behaviour, …) with volume chart |
+| With **urgency scores** | 0–100: severity base + hazard keywords (trapped/ફસાયા, child, suspicious bag…), S1 floats to top |
+| **Draft replies in the complainant's language** | Script detection → Gujarati / Hindi / English reply, ticket-ref filled, ready to send |
+| **Work on-device** | Single HTML file, no network, no server, no fonts, AI runs in-browser |
+| **Sync when connectivity returns** | IndexedDB outbox — files offline, drains when the train reaches a station |
 
 ## 🚀 Run it (offline, no server, no internet)
 
-1. Clone the repo **before boarding** (network needed once).
-2. Open **`dist/ops.html`** (Metro Operations demo) or **`dist/city.html`**
-   (City Transport demo) — double-click, any modern browser.
-3. Flip airplane mode. Everything keeps working — the app shows it noticed.
+1. Clone (done before boarding), then double-click **`dist/app.html`**.
+2. Flip airplane mode — the app shows it noticed, everything still works.
+3. Type a complaint in **any** language as you would on WhatsApp — watch the AI triage live.
+4. Paste a mixed dump in *Batch intake* → **Sort batch** → **File all as tickets**.
+5. Open *Department queues* → click the top complaint → **draft reply in the complainant's language**.
+6. Flip airplane mode OFF → the outbox drains, badges flip to *synced*.
 
-Rebuild the single-file demo after editing:
+Rebuild after edits: `python3 scripts/bake.py ps07` → `dist/app.html`.
+Dev mode: `python3 -m http.server` → `templates/ps07/index.html`.
 
-```bash
-python3 scripts/bake.py ops    # -> dist/ops.html
-python3 scripts/bake.py city   # -> dist/city.html
+## 🤖 The AI (meaningful, not decoration)
+
+- **Multilingual triage** — multinomial naive Bayes over Gujarati, Devanagari and Latin
+  scripts (unigrams + bigrams), **1,248 training examples, 11 categories** (including the
+  brief's *staff behaviour*). Trained offline in Python (`scripts/train_triage.py`,
+  committed and reproducible), inference in ~40 lines of JS in the browser.
+  - `લિફ્ટ બંધ છે` → Lifts & Escalators · `શંકાસ્પદ બેગ પ્લેટફોર્મ પર છે` → **S1 Security** · `lift band che` → Lifts · `staff rude hai` → Staff Conduct
+- **Urgency scoring** — deterministic, auditable: S1/S2/S3 base + hazard keyword boosts.
+- **Reply drafting** — template composition per department in gu/hi/en, severity-aware openers.
+- Why not an offline LLM? 150 KB deterministic model vs a 4 GB download: runs on any
+  staff phone browser, no GPU, explains itself (the training script is in the repo),
+  and every prediction is reproducible — the same complaint always routes the same way.
+
+## 📊 Data (bring-your-own-data, per the brief)
+
+- **Real:** all 36 stations on tonight's route (names in Gujarati + English, opening dates,
+  interchanges — Wikipedia/OSM, fetched 10 Oct 2026) — used for the station picker.
+- **Modeled honestly:** 150-entry mixed-language complaint history (30 days) mirroring the
+  channels in the brief; reply template bank. Everything documented in
+  [`data/assumptions.md`](data/assumptions.md) — real vs modeled, sources, error bounds.
+
+## 💼 Feasibility / PPP (a judging criterion)
+
+Fariyad is a thin offline layer that plugs into GMRC's existing complaint channels
+(app, helpline, social desk). A private partner runs triage + reply drafting as a
+per-station SaaS; GMRC keeps the data. No new hardware — works on any staff phone
+browser; the sync layer reuses GMRC's existing backend contract.
+
+## 📦 Repo map
+
+```
+dist/app.html    ← DEMO THIS (single file, 684 KB, zero network refs — verified)
+dist/ops.html    bonus: MetroOps console demo (fault triage board)
+dist/city.html   bonus: Interchange companion (offline map, bus math)
+templates/ps07/  Fariyad source    kit/  design system + store + AI runtime + vendored libs
+models/          triage.json (11 depts × 3 scripts)   scripts/  training + bake pipeline
+data/            stations (real) · complaints-seed · replies · assumptions.md
+RUNBOOK.md       tonight's ops protocol + demo script + pitch
 ```
 
-Dev mode (served): `python3 -m http.server` then open
-`templates/ops/index.html` or `templates/city/index.html`.
+## 🧪 Tested end-to-end (from a double-click, no server)
 
-## 📦 What's inside
-
-```
-dist/            baked single-file demos (DEMO THESE — zero network refs)
-templates/       ops/ (fault log · live board · delay simulator)
-                 city/ (offline map · will-I-make-my-bus · fare calc)
-kit/             dash.css design system · store.js (IndexedDB+outbox)
-                 ai.js (in-browser inference) · util.js · map.js
-                 vendor/ (Chart.js, Leaflet, 250 offline dark tiles)
-models/          triage.json (naive Bayes, 660 examples, 10 categories)
-                 crowding.json (CART tree, holdout MAE 7.2)
-data/            stations.json (36 real stations, tonight's route, en+gu)
-                 timetable/fares/assets/faults-seed/lastmile/busroutes/crowding
-                 assumptions.md  ← real vs modeled, judged-friendly honesty
-scripts/         train_triage.py · train_crowding.py · gen_data.py
-                 fetch_tiles.py · bake.py (single-file baker)
-```
-
-## 🤖 The AI (no cloud, no API keys, airplane-mode safe)
-
-- **Fault triage** — trained in Python (committed, reproducible), runs in ~40 lines
-  of JS: free-text staff report → category (10 classes) + severity (S1/S2/S3) +
-  owning team + SLA, with confidence. Try: *"lift stuck between ground and
-  concourse, passengers inside"* → `S1 → Lifts & Escalators (Mechanical) → IMMEDIATE`.
-- **Crowding predictor** — CART regression tree walked in JS: station class ×
-  hour-bucket × direction → expected occupancy per coach.
-
-## 🗺 Data honesty
-
-See [`data/assumptions.md`](data/assumptions.md). Short version: stations, order,
-names, interchanges and openings are real (Wikipedia/OSM, fetched 10 Oct 2026);
-timings, fares and histories are honestly modeled with sources and error bounds,
-and every UI surface labels modeled numbers.
-
-## Route facts for the ride
-
-Mahatma Mandir → Motera Stadium (Yellow, 21 stn, ~24 km) → APMC (Red, 14 stn,
-~17 km) and back. The repo contains every station on tonight's actual route.
+- Gujarati complaint → filed → S1 floats to queue top → draft reply renders in Gujarati ✓
+- Mixed batch of 5 (gu/hi/en/gujlish) → sorted by urgency (100→30) → all 5 filed → all drained/synced ✓
+- Data persists across reload (IndexedDB) ✓ · crash-catcher banner wired ✓
+- Airplane mode: banner + queueing verified; offline entries badge *queued · syncs at station* ✓
 
 ---
-*Data: Wikipedia (CC BY-SA) + OpenStreetMap (ODbL) via Photon geocoder; tiles © OpenStreetMap contributors, dark basemap by CARTO.*
+*Data: Wikipedia (CC BY-SA) + OpenStreetMap (ODbL); tiles © OpenStreetMap contributors, dark basemap by CARTO. Complaint corpus is synthetic GMRC-style, documented in assumptions.md.*
