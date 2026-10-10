@@ -83,3 +83,37 @@ RUNBOOK.md       tonight's ops protocol + demo script + pitch
 
 ---
 *Data: Wikipedia (CC BY-SA) + OpenStreetMap (ODbL); tiles © OpenStreetMap contributors, dark basemap by CARTO. Complaint corpus is synthetic GMRC-style, documented in assumptions.md.*
+
+## 📱 Android app (the pilot story)
+
+**A real installable APK** — built by GitHub Actions from this repo, published to
+[GitHub Releases](https://github.com/Mihir-Rabari/metro-hacks/releases/tag/apk-latest).
+
+- Raw Android SDK build (aapt2 → javac → d8 → zipalign → apksigner), no Gradle —
+  ~40 lines of Java (`android/`): a WebView served from a fake **https origin** so the
+  page gets a real secure origin — **IndexedDB, WASM and ES modules all work with zero
+  network and zero permissions**.
+- The **HuggingFace multilingual transformer ships inside the APK** (ONNX q8, 118 MB) and
+  runs fully on-device via transformers.js/WASM. If the model is missing, the app degrades
+  gracefully to the NB engine — never breaks.
+
+### Install (30 s)
+1. Download `Fariyad.apk` from the release.
+2. Allow "install unknown apps" for your browser (one-time prompt).
+3. Install → open **Fariyad** → flip airplane mode → everything still works.
+
+## 🧠 Model benchmark (the "technical depth" receipts)
+
+Held-out set: 44 fresh complaints — Gujarati script, Hindi script, Hinglish/Gujlish,
+English — **none** of these phrasings appear in training. `scripts/eval_neural.py`
+is fully reproducible (same script produced `models/eval.json`).
+
+| Engine | Held-out accuracy |
+|---|---|
+| Naive Bayes (domain-trained, 1,248 examples) | 79.5% |
+| HF `paraphrase-multilingual-MiniLM-L12-v2` (centroid, on-device) | 70.5% |
+| **Ensemble — NB leads; neural takes over when NB's top-2 margin < 2.0** | **86.4%** |
+
+The neural engine rescues exactly the cases where the NB has never seen the vocabulary
+(e.g. unseen English phrasings), and every triage shows both engines' opinions as chips.
+Ensemble rule was **pre-registered before evaluating** — no test-set tuning.
