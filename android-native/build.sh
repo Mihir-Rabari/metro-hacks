@@ -61,17 +61,18 @@ echo "== ORT: $(du -sh ort/classes.jar | cut -f1) classes + $(ls nativelib/lib/a
 
 # ---------------------------------------------------------------- compile
 rm -f res.zip unsigned.apk aligned.apk FariyadNative.apk
-rm -rf obj dexout && mkdir -p obj dexout
+rm -rf obj dexout gen && mkdir -p obj dexout gen
 
 "$BT/aapt2" compile --dir app/src/main/res -o res.zip
 "$BT/aapt2" link -o unsigned.apk -I "$PLATFORM" \
   --manifest app/src/main/AndroidManifest.xml \
   --min-sdk-version 24 --target-sdk-version 34 \
   --version-code "${GITHUB_RUN_NUMBER:-2}" --version-name "2.0" \
+  --java gen \
   res.zip
 
 javac -source 11 -target 11 -classpath "$PLATFORM:ort/classes.jar" -d obj \
-  $(find app/src/main/java -name '*.java')
+  $(find app/src/main/java gen -name '*.java')
 
 "$BT/d8" --lib "$PLATFORM" --release --output dexout \
   $(find obj -name '*.class') ort/classes.jar
