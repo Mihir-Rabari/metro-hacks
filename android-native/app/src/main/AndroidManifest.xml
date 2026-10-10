@@ -4,10 +4,14 @@
     android:versionCode="1"
     android:versionName="2.2">
 
-    <!-- Offline-first: the ONE permission is INTERNET — used only to drain the
-         outbox to the sync backend when connectivity returns. Everything else
-         (filing, triage, replies, storage) works with airplane mode on. -->
+    <!-- Offline-first: INTERNET only drains the outbox to the sync backend when
+         connectivity returns. ACCESS_NETWORK_STATE lets the app ASK whether a
+         network exists (ConnectivityManager throws SecurityException on some
+         OEMs without it) — and every check is wrapped in try/catch anyway, so a
+         denied/unavailable network stack reads as "offline", never as a crash.
+         Filing, triage, replies and storage work with airplane mode on. -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="34"/>
 

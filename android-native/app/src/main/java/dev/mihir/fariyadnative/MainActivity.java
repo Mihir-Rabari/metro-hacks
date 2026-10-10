@@ -173,7 +173,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        registerReceiver(netReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        try { registerReceiver(netReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)); }
+        catch (Exception e) { /* receiver flags vary by OEM — offline-first still holds */ }
         netUI();
     }
 
@@ -203,9 +204,15 @@ public class MainActivity extends Activity {
         }
     };
 
+    /** Guarded: some OEM builds throw SecurityException if ACCESS_NETWORK_STATE
+     *  is missing/misbehaving — we read that as "offline", never crash. */
     private boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm != null && cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+        try {
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            return cm != null && cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private void netUI() {
