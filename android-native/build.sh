@@ -4,8 +4,13 @@
 set -euo pipefail
 
 SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
-BT="$(ls -d "$SDK"/build-tools/* | sort -V | tail -1)"
-PLATFORM="$(ls -d "$SDK"/platforms/android-* | sort -V | tail -1)/android.jar"
+# Pin to stable 34.x: runners default to build-tools 37.0.0 + android-37.2-beta3,
+# whose beta aapt2 mis-validates style-item color references ("expected color but
+# got (raw string)"). 34 is preinstalled on ubuntu-latest images.
+BT="$(ls -d "$SDK"/build-tools/34* 2>/dev/null | sort -V | tail -1)"
+[ -z "$BT" ] && BT="$(ls -d "$SDK"/build-tools/* | sort -V | tail -1)"
+PLATFORM="$(ls -d "$SDK"/platforms/android-34* 2>/dev/null | sort -V | tail -1)/android.jar"
+[ -e "$PLATFORM" ] || PLATFORM="$(ls -d "$SDK"/platforms/android-* | sort -V | tail -1)/android.jar"
 cd "$(dirname "$0")"
 
 ORT_VER="1.16.3"

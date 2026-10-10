@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
-        <item name="android:windowBackground">@color/bg</item>
-        <item name="android:colorPrimary">@color/brand</item>
-        <item name="android:colorAccent">@color/brand</item>
-        <item name="android:statusBarColor">@color/bg</item>
-        <item name="android:navigationBarColor">@color:bg</item>
+        <!-- hex values inlined: survive even on runner toolchains that
+             mis-validate style-item resource references -->
+        <item name="android:windowBackground">#FF0B1220</item>
+        <item name="android:colorPrimary">#FFF5C518</item>
+        <item name="android:colorAccent">#FFF5C518</item>
+        <item name="android:statusBarColor">#FF0B1220</item>
+        <item name="android:navigationBarColor">#FF0B1220</item>
     </style>
 
     <style name="Card">
