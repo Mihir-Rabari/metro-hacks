@@ -69,6 +69,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle b) {
         super.onCreate(b);
+        reportPreviousCrashIfAny();
+        try {
         setContentView(R.layout.activity_main);
         store = new Store(this);
 
@@ -109,13 +111,56 @@ public class MainActivity extends Activity {
         replyBox.setOnLongClickListener(v -> { copyReply(); return true; });
 
         loadAssetsInBackground();
-        neural.loadInBackground(this, (ok, why) -> {
+
+        // AI init deferred: the UI is usable instantly; models warm up right after
+        ui.postDelayed(() -> neural.loadInBackground(this, (ok, why) -> {
             chipEngine.setText(ok ? "🧠 neural: ON" : "engine: NB");
-            chipEngine.setTextColor(getColor(ok ? R.color.ok : R.color.dim));
+            chipEngine.setTextColor(ok ? 0xFF3DDC84 : 0xFF8B96A8);
             Toast.makeText(this, ok ? "Multilingual neural engine ready (on-device)"
                     : "Neural engine unavailable — NB-only (" + why + ")",
                     Toast.LENGTH_LONG).show();
-        });
+        }), 2000);
+
+        } catch (Throwable t) { showCrash(t); }
+    }
+
+    // ---------------------------------------------------------------- crash capture
+    /** Writes + shows any failure that escapes onCreate's try — a screenshot of this
+     *  dialog pinpoints the cause without adb. */
+    private void showCrash(Throwable t) {
+        try {
+            java.io.File f = new java.io.File(getFilesDir(), App.CRASH_LOG);
+            java.io.PrintWriter w = new java.io.PrintWriter(new java.io.FileWriter(f, true));
+            w.println("==== onCreate " + new java.util.Date());
+            t.printStackTrace(w);
+            w.close();
+        } catch (Throwable ignored) { }
+        try {
+            StringBuilder sb = new StringBuilder(String.valueOf(t));
+            for (StackTraceElement el : t.getStackTrace()) sb.append("\n  at ").append(el);
+            new AlertDialog.Builder(this)
+                    .setTitle("Something failed — screenshot this")
+                    .setMessage(sb)
+                    .setPositiveButton("Close", null).show();
+        } catch (Throwable ignored) { }
+    }
+
+    /** If the previous run crashed (killed by App's uncaught handler), show that log now. */
+    private void reportPreviousCrashIfAny() {
+        try {
+            java.io.File f = new java.io.File(getFilesDir(), App.CRASH_LOG);
+            if (f.exists()) {
+                byte[] buf = new byte[(int) Math.min(f.length(), 8000)];
+                java.io.FileInputStream in = new java.io.FileInputStream(f);
+                int r = in.read(buf);
+                in.close();
+                f.delete();
+                new AlertDialog.Builder(this)
+                        .setTitle("Previous crash log (send a screenshot of this)")
+                        .setMessage(new String(buf, 0, Math.max(r, 0), "UTF-8"))
+                        .setPositiveButton("OK", null).show();
+            }
+        } catch (Throwable ignored) { }
     }
 
     @Override

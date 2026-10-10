@@ -2,17 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.mihir.fariyadnative"
     android:versionCode="1"
-    android:versionName="2.0">
+    android:versionName="2.1">
 
     <!-- Native app: zero permissions, zero network, zero WebView. -->
     <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="34"/>
 
     <application
+        android:name="dev.mihir.fariyadnative.App"
         android:label="Fariyad"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="true"
         android:extractNativeLibs="true"
-        android:theme="@style/AppTheme">
+        android:theme="@android:style/Theme.Material.NoActionBar">
 
         <activity
             android:name="dev.mihir.fariyadnative.MainActivity"

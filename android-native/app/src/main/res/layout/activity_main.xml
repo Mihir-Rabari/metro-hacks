@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:padding="12dp">
+    android:orientation="vertical" android:padding="12dp" android:background="#FF0B1220">
 
     <!-- header -->
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="horizontal" android:gravity="center_vertical">
         <TextView android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1" android:text="ફરિયાદ · Fariyad"
-            android:textSize="20sp" android:textStyle="bold" android:textColor="@color/ink"/>
-        <TextView android:id="@+id/chip_engine" style="@style/Chip"
+            android:textSize="20sp" android:textStyle="bold" android:textColor="#FFE8EDF5"/>
+        <TextView android:id="@+id/chip_engine"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:textColor="@color/dim" android:text="engine: NB"/>
-        <TextView android:id="@+id/chip_sync" style="@style/Chip"
+            android:background="@drawable/chip_bg" android:paddingLeft="10dp"
+            android:paddingRight="10dp" android:paddingTop="4dp" android:paddingBottom="4dp"
+            android:textSize="11sp" android:textColor="#FF8B96A8" android:text="engine: NB"/>
+        <TextView android:id="@+id/chip_sync"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp" android:textColor="@color/dim" android:text="sync 0"/>
+            android:layout_marginLeft="6dp"
+            android:background="@drawable/chip_bg" android:paddingLeft="10dp"
+            android:paddingRight="10dp" android:paddingTop="4dp" android:paddingBottom="4dp"
+            android:textSize="11sp" android:textColor="#FF8B96A8" android:text="sync 0"/>
     </LinearLayout>
     <TextView android:id="@+id/chip_net" android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:layout_marginTop="4dp" android:layout_marginBottom="8dp"
-        android:textSize="11sp" android:textColor="@color/dim"
+        android:textSize="11sp" android:textColor="#FF8B96A8"
         android:text="✈️ No network needed — everything runs on-device"/>
 
     <!-- KPI strip -->
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="horizontal" style="@style/Card" android:layout_marginBottom="10dp">
+        android:orientation="horizontal" android:background="@drawable/card_bg"
+        android:padding="14dp" android:layout_marginBottom="10dp">
         <TextView android:id="@+id/kpi_total" android:layout_width="0dp" android:layout_weight="1"
             android:layout_height="wrap_content" android:gravity="center"
-            android:textSize="18sp" android:textStyle="bold" android:textColor="@color/ink" android:text="0\nfiled"/>
+            android:textSize="18sp" android:textStyle="bold" android:textColor="#FFE8EDF5" android:text="0\nfiled"/>
         <TextView android:id="@+id/kpi_open" android:layout_width="0dp" android:layout_weight="1"
             android:layout_height="wrap_content" android:gravity="center"
-            android:textSize="18sp" android:textStyle="bold" android:textColor="@color/ink" android:text="0\nopen"/>
+            android:textSize="18sp" android:textStyle="bold" android:textColor="#FFE8EDF5" android:text="0\nopen"/>
         <TextView android:id="@+id/kpi_s1" android:layout_width="0dp" android:layout_weight="1"
             android:layout_height="wrap_content" android:gravity="center"
-            android:textSize="18sp" android:textStyle="bold" android:textColor="@color/s1" android:text="0\nS1 open"/>
+            android:textSize="18sp" android:textStyle="bold" android:textColor="#FFFF5A5F" android:text="0\nS1 open"/>
         <TextView android:id="@+id/kpi_urg" android:layout_width="0dp" android:layout_weight="1"
             android:layout_height="wrap_content" android:gravity="center"
-            android:textSize="18sp" android:textStyle="bold" android:textColor="@color/brand" android:text="0\navg urg"/>
+            android:textSize="18sp" android:textStyle="bold" android:textColor="#FFF5C518" android:text="0\navg urg"/>
     </LinearLayout>
 
     <!-- tab row -->
@@ -60,16 +66,17 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="SINGLE COMPLAINT — AI triages as you type"
-                    android:textSize="13sp" android:textStyle="bold" android:textColor="@color/brand"/>
+                    android:textSize="13sp" android:textStyle="bold" android:textColor="#FFF5C518"/>
                 <TextView android:id="@+id/triage_live" android:layout_width="match_parent"
-                    android:layout_height="wrap_content" style="@style/Card" android:layout_marginTop="8dp"
-                    android:textSize="13sp" android:textColor="@color/ink"
+                    android:layout_height="wrap_content" android:background="@drawable/card_bg"
+                    android:padding="14dp" android:layout_marginTop="8dp"
+                    android:textSize="13sp" android:textColor="#FFE8EDF5"
                     android:text="Type a complaint in any language…"/>
 
                 <EditText android:id="@+id/input" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="10dp"
                     android:minLines="3" android:gravity="top" android:textSize="15sp"
-                    android:textColor="@color/ink" android:textColorHint="@color/dim"
+                    android:textColor="#FFE8EDF5" android:textColorHint="#FF8B96A8"
                     android:inputType="textMultiLine|textCapSentences"
                     android:hint="e.g. લિફ્ટ બંધ છે | lift band che | unattended bag near gate 2"/>
 
@@ -81,13 +88,16 @@
                         android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:spinnerMode="dropdown"/>
                 </LinearLayout>
 
-                <Button android:id="@+id/file_btn" style="@style/PrimaryButton"
+                <Button android:id="@+id/file_btn"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" android:text="File complaint →"/>
+                    android:layout_marginTop="10dp" android:text="File complaint →"
+                    android:background="@drawable/btn_bg" android:textColor="#FF0B1220"
+                    android:textStyle="bold" android:paddingLeft="18dp" android:paddingRight="18dp"/>
 
                 <TextView android:id="@+id/reply_box" android:layout_width="match_parent"
-                    android:layout_height="wrap_content" style="@style/Card" android:layout_marginTop="10dp"
-                    android:textSize="13sp" android:fontFamily="monospace" android:textColor="@color/ink"
+                    android:layout_height="wrap_content" android:background="@drawable/card_bg"
+                    android:padding="14dp" android:layout_marginTop="10dp"
+                    android:textSize="13sp" android:fontFamily="monospace" android:textColor="#FFE8EDF5"
                     android:visibility="gone"/>
             </LinearLayout>
         </ScrollView>
@@ -95,19 +105,21 @@
         <!-- QUEUES -->
         <ListView android:id="@+id/view_queues" android:layout_width="match_parent"
             android:layout_height="match_parent" android:visibility="gone"
-            android:divider="#233149" android:dividerHeight="1dp"/>
+            android:divider="#FF233149" android:dividerHeight="1dp"/>
 
         <!-- HISTORY -->
         <LinearLayout android:id="@+id/view_hist" android:layout_width="match_parent"
             android:layout_height="match_parent" android:orientation="vertical" android:visibility="gone">
-            <Button android:id="@+id/sync_btn" style="@style/PrimaryButton"
+            <Button android:id="@+id/sync_btn"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Attempt sync now"/>
+                android:text="Attempt sync now"
+                android:background="@drawable/btn_bg" android:textColor="#FF0B1220"
+                android:textStyle="bold" android:paddingLeft="18dp" android:paddingRight="18dp"/>
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:textSize="11sp" android:textColor="@color/dim" android:layout_marginBottom="6dp"
+                android:textSize="11sp" android:textColor="#FF8B96A8" android:layout_marginBottom="6dp"
                 android:text="Sync is simulated on-device (no server on this ride). The outbox drains and queued tickets flip to synced — the same contract a real GMRC endpoint would use."/>
             <ListView android:id="@+id/hist_list" android:layout_width="match_parent"
-                android:layout_height="match_parent" android:divider="#233149" android:dividerHeight="1dp"/>
+                android:layout_height="match_parent" android:divider="#FF233149" android:dividerHeight="1dp"/>
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>
