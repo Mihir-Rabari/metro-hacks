@@ -1,0 +1,50 @@
+name: Build Android APK
+
+on:
+  push:
+    paths:
+      - 'android/**'
+      - 'dist/app.html'
+      - 'kit/**'
+      - 'models/**'
+      - 'templates/ps07/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Build signed APK (WebView app + on-device AI model)
+        run: bash android/build.sh
+
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-latest
+          name: "Fariyad Android APK (auto-built)"
+          files: android/Fariyad.apk
+          body: |
+            **ફરિયાદ · Fariyad — PS-07 · Every Complaint Heard** (Metro Hacks, Road to DevFest Gandhinagar 2026)
+
+            Android app with the multilingual complaint-triage AI running **fully on-device**
+            (Xenova multilingual MiniLM, ONNX quantized — no network needed, ever).
+
+            ### Install (30 seconds)
+            1. Download **`Fariyad.apk`** below.
+            2. Open it — Android will ask to allow installs from your browser for this once (Settings → Install unknown apps → Allow).
+            3. Install. Open **Fariyad**.
+            4. Flip on airplane/flight mode — the app still works end to end. That is the point.
+
+            Built automatically from `main` on every push. Zero permissions requested.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

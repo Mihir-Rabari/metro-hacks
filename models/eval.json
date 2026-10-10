@@ -1,0 +1,133 @@
+{
+ "meta": {
+  "note": "Honest held-out comparison: naive Bayes vs HF multilingual MiniLM (centroid) vs ensemble. Ensemble rule fixed in advance: neural wins on cosine >= 0.35, else NB.",
+  "holdoutSize": 44,
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+ },
+ "accuracy": {
+  "nb": 0.7955,
+  "neural": 0.7045,
+  "ensemble": 0.8636
+ },
+ "mismatches": [
+  [
+   "avm me coin nahi lag raha",
+   "afc_gates",
+   "rolling_stock",
+   "security_safety",
+   0.205
+  ],
+  [
+   "washroom smells terrible no water",
+   "cleanliness",
+   "station_infra",
+   "cleanliness",
+   0.499
+  ],
+  [
+   "ladki ko paresan kar raha hai koi",
+   "security_safety",
+   "lifts_escalators",
+   "security_safety",
+   0.298
+  ],
+  [
+   "pickpocket incident at gate",
+   "security_safety",
+   "afc_gates",
+   "afc_gates",
+   0.476
+  ],
+  [
+   "conductor ne gaali di",
+   "staff_behaviour",
+   "staff_behaviour",
+   "rolling_stock",
+   0.605
+  ],
+  [
+   "seepage on the wall platform 2",
+   "station_infra",
+   "cleanliness",
+   "station_infra",
+   0.433
+  ],
+  [
+   "\u0aaa\u0acd\u0ab2\u0ac7\u0a9f\u0aab\u0acb\u0ab0\u0acd\u0aae \u0aa8\u0a82. \u0ae7 \u0aa8\u0ac0 \u0a9f\u0abe\u0a87\u0ab2 \u0a96\u0ab0\u0aa1\u0ac0 \u0a9b\u0ac7",
+   "station_infra",
+   "cleanliness",
+   "cleanliness",
+   0.347
+  ],
+  [
+   "staircase railing tut gayi",
+   "station_infra",
+   "station_infra",
+   "lifts_escalators",
+   0.514
+  ],
+  [
+   "coach me ac kaam nahi kar raha",
+   "rolling_stock",
+   "rolling_stock",
+   "staff_behaviour",
+   0.235
+  ],
+  [
+   "seats torn in second coach",
+   "rolling_stock",
+   "rolling_stock",
+   "staff_behaviour",
+   0.291
+  ],
+  [
+   "train atki hui hai signal par",
+   "signalling",
+   "signalling",
+   "rolling_stock",
+   0.7
+  ],
+  [
+   "\u0a9f\u0acd\u0ab0\u0ac7\u0aa8 \u0a85\u0a9a\u0abe\u0aa8\u0a95 \u0ab2\u0abe\u0ab2 \u0ab8\u0abf\u0a97\u0acd\u0aa8\u0ab2 \u0aaa\u0ab0 \u0a8a\u0aad\u0ac0 \u0ab0\u0ab9\u0ac0",
+   "signalling",
+   "signalling",
+   "rolling_stock",
+   0.633
+  ],
+  [
+   "\u0ab8\u0acd\u0a9f\u0ac7\u0ab6\u0aa8\u0aae\u0abe\u0a82 \u0ab5\u0ac0\u0a9c\u0ab3\u0ac0 \u0a97\u0a88",
+   "power_traction",
+   "power_traction",
+   "rolling_stock",
+   0.607
+  ],
+  [
+   "emergency backup not working",
+   "power_traction",
+   "lifts_escalators",
+   "lifts_escalators",
+   0.342
+  ],
+  [
+   "\u0aa1\u0abf\u0ab8\u0acd\u0aaa\u0acd\u0ab2\u0ac7 \u0aaa\u0ab0 \u0aae\u0abe\u0ab9\u0abf\u0aa4\u0ac0 \u0a96\u0acb\u0a9f\u0ac0 \u0aa6\u0ac7\u0a96\u0abe\u0aaf \u0a9b\u0ac7",
+   "passenger_info",
+   "cleanliness",
+   "passenger_info",
+   0.326
+  ],
+  [
+   "\u0aac\u0ab9\u0abe\u0ab0 \u0ab0\u0abf\u0a95\u0acd\u0ab7\u0abe \u0a85\u0ab5\u0ab0\u0acb\u0aa7 \u0a95\u0ab0\u0ac7 \u0a9b\u0ac7",
+   "civic_tickets",
+   "civic_tickets",
+   "cleanliness",
+   0.406
+  ],
+  [
+   "footpath par rehdi laga hai",
+   "civic_tickets",
+   "lifts_escalators",
+   "security_safety",
+   0.267
+  ]
+ ]
+}
