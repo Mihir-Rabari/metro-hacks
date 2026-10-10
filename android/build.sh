@@ -57,9 +57,10 @@ javac -source 11 -target 11 -classpath "$PLATFORM" -d obj \
 # 6) dex
 "$BT/d8" --lib "$PLATFORM" --release --output dexout $(find obj -name '*.class')
 
-# 7) pack dex + assets into the apk
-(cd dexout && zip -q ../unsigned.apk classes.dex)
-(cd app/src/main/assets && zip -qr "$PWD/../../../../../unsigned.apk" www)
+# 7) pack dex + assets into the apk (paths relative to the android/ build dir)
+BUILD_DIR="$(pwd)"
+(cd dexout && zip -q "$BUILD_DIR/unsigned.apk" classes.dex)
+(cd app/src/main/assets && zip -qr "$BUILD_DIR/unsigned.apk" www)
 
 # 8) zipalign
 "$BT/zipalign" -f 4 unsigned.apk aligned.apk
