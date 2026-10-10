@@ -324,11 +324,13 @@ public class MainActivity extends Activity {
                 e[0]++; if ("S1".equals(c.severity)) e[1]++;
                 if (c.urg > e[2]) e[2] = c.urg;
             }
+            final int fS1 = s1;
+            final int fAvgUrg = (total == 0 ? 0 : (int) Math.round(urgSum / (double) total));
             ui.post(() -> {
                 kpiTotal.setText(total + "\nfiled");
                 kpiOpen.setText(total + "\nopen");
-                kpiS1.setText(s1 + "\nS1 open");
-                kpiUrg.setText((total == 0 ? 0 : Math.round(urgSum / (double) total)) + "\navg urg");
+                kpiS1.setText(fS1 + "\nS1 open");
+                kpiUrg.setText(fAvgUrg + "\navg urg");
                 chipSync.setText("sync " + unsynced);
                 renderQueues(byCat);
                 renderHistory(all);
