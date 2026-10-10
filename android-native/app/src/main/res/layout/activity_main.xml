@@ -117,7 +117,7 @@
                 android:textStyle="bold" android:paddingLeft="18dp" android:paddingRight="18dp"/>
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:textSize="11sp" android:textColor="#FF8B96A8" android:layout_marginBottom="6dp"
-                android:text="Sync is simulated on-device (no server on this ride). The outbox drains and queued tickets flip to synced — the same contract a real GMRC endpoint would use."/>
+                android:text="Outbox drains to the Node.js + MongoDB backend (docker compose) when reachable — POST /api/sync, only acked tickets flip to synced. Unreachable = tickets stay queued on-device. Nothing is lost. Long-press the sync chip to change the endpoint."/>
             <ListView android:id="@+id/hist_list" android:layout_width="match_parent"
                 android:layout_height="match_parent" android:divider="#FF233149" android:dividerHeight="1dp"/>
         </LinearLayout>

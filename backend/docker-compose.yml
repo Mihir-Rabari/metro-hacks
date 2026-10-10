@@ -1,0 +1,23 @@
+# Fariyad pilot stack — one command: docker compose up -d
+# (MongoDB + the Node sync backend + the control-room dashboard on :3000)
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URL: mongodb://mongo:27017
+      MONGO_DB: fariyad
+      PORT: 3000
+    ports:
+      - "3020:3000"
+
+volumes:
+  mongo-data:

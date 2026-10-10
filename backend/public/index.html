@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fariyad · GMRC Control Room</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0B1220; --card:#131C2E; --line:#233149; --ink:#E8EDF5; --dim:#8B96A8;
+    --brand:#F5C518; --s1:#FF5A5F; --ok:#3DDC84;
+  }
+  body { font-family:-apple-system,'Segoe UI',Roboto,sans-serif; background:var(--bg); color:var(--ink); padding:22px; }
+  .wrap { max-width:1080px; margin:0 auto; }
+  h1 { font-size:26px; letter-spacing:-.02em; }
+  h1 b { color:var(--brand); }
+  .sub { color:var(--dim); font-size:13px; margin:4px 0 20px; }
+  .live { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--ok); margin-right:6px; animation:p 2s infinite; }
+  @keyframes p { 50% { opacity:.35; } }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; }
+  .card .num { font-size:30px; font-weight:800; }
+  .card .lbl { color:var(--dim); font-size:11px; text-transform:uppercase; letter-spacing:.08em; margin-top:2px; }
+  .red { color:var(--s1); } .yellow { color:var(--brand); } .green { color:var(--ok); }
+  .cols { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; }
+  @media (max-width:820px){ .cols{grid-template-columns:1fr;} }
+  .panel { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; }
+  .panel h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--dim); margin-bottom:12px; }
+  .dept { margin-bottom:10px; }
+  .dept .row { display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px; }
+  .dept .bar { height:8px; background:#1B2438; border-radius:6px; overflow:hidden; }
+  .dept .fill { height:100%; background:var(--brand); border-radius:6px; }
+  .dept.hot .fill { background:var(--s1); }
+  .feed { max-height:560px; overflow:auto; }
+  .tix { border:1px solid var(--line); border-radius:12px; padding:12px; margin-bottom:10px; background:#0E1626; }
+  .tix .top { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:6px; }
+  .pill { font-size:10px; font-weight:700; padding:2px 8px; border-radius:8px; }
+  .pill.s1 { background:rgba(255,90,95,.15); color:var(--s1); border:1px solid rgba(255,90,95,.4); }
+  .pill.s2 { background:rgba(245,197,24,.12); color:var(--brand); border:1px solid rgba(245,197,24,.35); }
+  .pill.s3 { background:#1B2438; color:var(--dim); border:1px solid #2C3A55; }
+  .pill.lang { background:#1B2438; color:var(--ink); border:1px solid #2C3A55; font-weight:400; }
+  .pill.eng { background:rgba(61,220,132,.1); color:var(--ok); border:1px solid rgba(61,220,132,.3); }
+  .id { font-family:ui-monospace,monospace; font-size:11px; color:var(--dim); }
+  .urg { font-size:11px; color:var(--dim); margin-left:auto; }
+  .urg b { color:var(--ink); }
+  .text { font-size:14px; line-height:1.5; margin-bottom:6px; }
+  .reply { font-size:12px; color:var(--dim); border-left:2px solid var(--line); padding-left:10px; line-height:1.5; max-height:64px; overflow:hidden; }
+  .foot { margin-top:20px; color:var(--dim); font-size:11px; line-height:1.7; text-align:center; }
+  a { color:var(--brand); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>ફરિયાદ · <b>Fariyad</b> Control Room</h1>
+  <div class="sub"><span class="live"></span>Station-side sync server — tickets appear here the moment the outbox drains.
+    Offline-first by design: unreachable server = tickets stay queued on the device.</div>
+
+  <div class="cards">
+    <div class="card"><div class="num" id="k-total">0</div><div class="lbl">tickets synced</div></div>
+    <div class="card"><div class="num red" id="k-s1">0</div><div class="lbl">S1 immediate</div></div>
+    <div class="card"><div class="num yellow" id="k-urg">0</div><div class="lbl">avg urgency</div></div>
+    <div class="card"><div class="num green" id="k-mongo">…</div><div class="lbl">mongo status</div></div>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <h2>Department load</h2>
+      <div id="depts"><div class="sub">waiting for sync…</div></div>
+    </div>
+    <div class="panel">
+      <h2>Live ticket feed</h2>
+      <div class="feed" id="feed"><div class="sub">no tickets yet — file one in the app and hit “Attempt sync now”</div></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Fariyad — offline-first grievance triage for GMRC · Metro Hacks, on board the Gujarat Metro · 10 Oct 2026<br>
+    <a href="https://github.com/Mihir-Rabari/metro-hacks">repo</a> ·
+    <a href="https://github.com/Mihir-Rabari/metro-hacks/releases/tag/apk-latest">APKs</a> ·
+    API: <code>POST /api/sync</code> <code>GET /api/tickets</code> <code>GET /api/stats</code> ·
+    stack: Node.js + Express + MongoDB via docker compose
+  </div>
+</div>
+<script>
+const LANG = { gu:'ગુજરાતી', hi:'हिंदी', en:'English' };
+const DEPT = { security_safety:'Security & Safety', lifts_escalators:'Lifts & Escalators', afc_gates:'AFC / Ticketing',
+  cleanliness:'Cleanliness', station_infra:'Station Civil', rolling_stock:'Rolling Stock', signalling:'Signalling & Telecom',
+  power_traction:'Traction & Electrical', civic_tickets:'Civic Tickets', passenger_info:'Passenger Info', staff_behaviour:'Staff Behaviour' };
+
+async function poll() {
+  try {
+    const h = await (await fetch('/health')).json();
+    document.getElementById('k-mongo').textContent = h.mongo ? 'up' : 'down';
+    const s = await (await fetch('/api/stats')).json();
+    document.getElementById('k-total').textContent = s.total;
+    document.getElementById('k-s1').textContent = s.s1;
+    document.getElementById('k-urg').textContent = s.avgUrg;
+    const dbox = document.getElementById('depts');
+    if (s.byDept && s.byDept.length) {
+      const max = Math.max(...s.byDept.map(d => d.n), 1);
+      dbox.innerHTML = s.byDept.map(d => `
+        <div class="dept ${d.maxUrg>=80?'hot':''}">
+          <div class="row"><span>${DEPT[d.dept]||d.dept}</span><span>${d.n} · urg ${d.maxUrg}</span></div>
+          <div class="bar"><div class="fill" style="width:${Math.round(d.n/max*100)}%"></div></div>
+        </div>`).join('');
+    } else dbox.innerHTML = '<div class="sub">waiting for sync…</div>';
+
+    const t = await (await fetch('/api/tickets?limit=30')).json();
+    if (t.count) {
+      document.getElementById('feed').innerHTML = t.tickets.map(c => `
+        <div class="tix">
+          <div class="top">
+            <span class="pill ${c.severity}">${c.severity}</span>
+            <span class="pill eng">${(c.engine||'NB').replace(' + neural','+')}</span>
+            <span class="pill lang">${LANG[c.lang]||c.lang}</span>
+            <span class="id">${c.id}</span>
+            <span class="urg">urg <b>${c.urg}</b> · ${c.station||''}</span>
+          </div>
+          <div class="text">${escapeHtml(c.text)}</div>
+          <div class="reply">${escapeHtml((c.reply||'').split('\n').slice(0,2).join(' — '))}</div>
+        </div>`).join('');
+    }
+  } catch (e) { document.getElementById('k-mongo').textContent = 'offline'; }
+}
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+poll(); setInterval(poll, 4000);
+</script>
+</body>
+</html>

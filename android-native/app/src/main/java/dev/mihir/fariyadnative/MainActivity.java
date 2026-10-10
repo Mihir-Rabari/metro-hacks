@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,6 +62,8 @@ public class MainActivity extends Activity {
     private Runnable pendingTriage;
     private volatile boolean assetsReady = false;
     private final Random rnd = new Random();
+    private android.content.SharedPreferences prefs;
+    private Button[] tabBtns;
 
     private static final double MARGIN_T = 2.0; // pre-registered ensemble rule (eval_neural.py)
     private static final String[] LANG_NAME = {"gu:ગુજરાતી", "hi:हिंदी", "en:EN"};
@@ -73,6 +76,9 @@ public class MainActivity extends Activity {
         try {
         setContentView(R.layout.activity_main);
         store = new Store(this);
+        prefs = getSharedPreferences("fariyad", MODE_PRIVATE);
+        tabBtns = new Button[]{
+                findViewById(R.id.tab_intake), findViewById(R.id.tab_queues), findViewById(R.id.tab_hist)};
 
         input = findViewById(R.id.input);
         triageLive = findViewById(R.id.triage_live);
@@ -100,6 +106,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.tab_hist).setOnClickListener(v -> setTab(2));
         findViewById(R.id.file_btn).setOnClickListener(v -> fileComplaint());
         findViewById(R.id.sync_btn).setOnClickListener(v -> attemptSync());
+        chipSync.setOnLongClickListener(v -> { editEndpoint(); return true; });
         setTab(0);
 
         input.addTextChangedListener(new TextWatcher() {
@@ -180,10 +187,19 @@ public class MainActivity extends Activity {
         @Override public void onReceive(Context c, android.content.Intent i) {
             netUI();
             if (isOnline() && store.unsynced() > 0) {   // train reached a station
-                int n = store.drainOutbox();
-                toast("📶 connectivity returned — outbox drained: " + n + " ticket(s) synced");
+                final List<Store.C> queued = store.queuedList();
+                bg.execute(() -> {
+                    Sync.Result r = Sync.drain(endpoint(), queued, deviceId());
+                    if (r.reached && !r.acked.isEmpty()) {
+                        store.markSynced(r.acked);
+                        ui.post(() -> { toast("📶 connectivity returned — outbox drained: " + r.acked.size() + " ticket(s) acked by the backend"); refresh(); });
+                    } else {
+                        ui.post(MainActivity.this::refresh);
+                    }
+                });
+            } else {
+                refresh();
             }
-            refresh();
         }
     };
 
@@ -194,7 +210,7 @@ public class MainActivity extends Activity {
 
     private void netUI() {
         chipNet.setText(isOnline()
-                ? "📶 online — outbox can drain (syncs at stations)"
+                ? "📶 online — outbox can drain to the backend (syncs at stations)"
                 : "✈️ No network: complaints still file, triage, queue on-device — nothing is lost");
     }
 
@@ -273,9 +289,12 @@ public class MainActivity extends Activity {
                     }
                 }
                 String team = triTeam(cat);
-                triageLive.setText(team + "\n" + Math.round(t.conf * 100) + "% conf · " + t.severity
-                        + " · urgency " + urg + " · " + langName(lang) + "\nengine: " + engine
-                        + (no != null ? " (neural: " + no.category + " " + String.format(Locale.US, "%.2f", no.cosine) + ")" : ""));
+                triageLive.setText(android.text.Html.fromHtml(
+                        "<big><b>" + team + "</b></big><br>" +
+                        Math.round(t.conf * 100) + "% conf · " + t.severity + " · urgency <b>" + urg + "</b> · " + langName(lang) +
+                        "<br><small>engine: " + engine +
+                        (no != null ? " (neural: " + no.category + " " + String.format(Locale.US, "%.2f", no.cosine) + ")" : "") +
+                        "</small>"));
             });
         });
     }
@@ -349,7 +368,37 @@ public class MainActivity extends Activity {
         viewIntake.setVisibility(i == 0 ? View.VISIBLE : View.GONE);
         viewQueues.setVisibility(i == 1 ? View.VISIBLE : View.GONE);
         viewHist.setVisibility(i == 2 ? View.VISIBLE : View.GONE);
+        for (int k = 0; k < tabBtns.length; k++) {
+            tabBtns[k].setBackgroundResource(k == i ? R.drawable.btn_bg : R.drawable.chip_bg);
+            tabBtns[k].setTextColor(k == i ? 0xFF0B1220 : 0xFF8B96A8);
+            tabBtns[k].setTextSize(13);
+        }
         refresh();
+    }
+
+    /** Where the outbox drains. Long-press the sync chip to change at runtime. */
+    private String endpoint() {
+        return prefs.getString("endpoint", Sync.DEFAULT_ENDPOINT);
+    }
+
+    private String deviceId() {
+        return android.provider.Settings.Secure.getString(
+                getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+    }
+
+    private void editEndpoint() {
+        android.widget.EditText inp = new android.widget.EditText(this);
+        inp.setText(endpoint());
+        new AlertDialog.Builder(this)
+                .setTitle("Sync backend endpoint")
+                .setMessage("The outbox drains here (POST /api/sync) when connectivity returns. " +
+                        "Default is the live demo backend; the control-room dashboard is this URL's / page.")
+                .setView(inp)
+                .setPositiveButton("Save", (d, w) -> {
+                    prefs.edit().putString("endpoint", inp.getText().toString().trim()).apply();
+                    toast("Endpoint saved — future drains go there");
+                })
+                .setNegativeButton("Cancel", null).show();
     }
 
     private void refresh() {
@@ -384,14 +433,32 @@ public class MainActivity extends Activity {
     }
 
     private void renderQueues(Map<String, int[]> byCat) {
-        List<String> rows = new ArrayList<>();
-        List<String> order = new ArrayList<>(byCat.keySet());
+        final List<String> order = new ArrayList<>(byCat.keySet());
         order.sort((a, b2) -> Integer.compare(byCat.get(b2)[2], byCat.get(a)[2]));   // hottest first
-        for (String cat : order) {
-            int[] e = byCat.get(cat);
-            rows.add(triTeam(cat) + "\n  " + e[0] + " open · S1: " + e[1] + " · top urgency " + e[2]);
-        }
-        if (rows.isEmpty()) rows.add("No complaints filed yet.\nFile one from the Intake tab — works fully offline.");
+        queuesList.setAdapter(new android.widget.BaseAdapter() {
+            @Override public int getCount() { return order.isEmpty() ? 1 : order.size(); }
+            @Override public Object getItem(int p) { return null; }
+            @Override public long getItemId(int p) { return p; }
+            @Override public View getView(int p, View cv, ViewGroup parent) {
+                View v = cv != null ? cv : getLayoutInflater().inflate(R.layout.row_queue, parent, false);
+                TextView title = v.findViewById(R.id.row_title);
+                TextView sub = v.findViewById(R.id.row_sub);
+                TextView chip = v.findViewById(R.id.row_chip);
+                if (order.isEmpty()) {
+                    title.setText("No complaints filed yet");
+                    sub.setText("File one from the Intake tab — it works fully offline.");
+                    chip.setText("");
+                } else {
+                    String cat = order.get(p);
+                    int[] e = byCat.get(cat);
+                    title.setText(triTeam(cat));
+                    sub.setText(e[0] + " open · S1: " + e[1] + " · top urgency " + e[2]);
+                    chip.setText(String.valueOf(e[2]));
+                    chip.setTextColor(e[2] >= 80 ? 0xFFFF5A5F : e[2] >= 50 ? 0xFFF5C518 : 0xFF8B96A8);
+                }
+                return v;
+            }
+        });
         queuesList.setOnItemClickListener((p, v, pos, id2) -> {
             if (order.isEmpty() || pos >= order.size()) return;
             String cat = order.get(pos);
@@ -404,16 +471,40 @@ public class MainActivity extends Activity {
                     .setItems(lines.toArray(new String[0]), null)
                     .setPositiveButton("Close", null).show();
         });
-        queuesList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, rows));
     }
 
-    private void renderHistory(List<Store.C> all) {
-        List<String> rows = new ArrayList<>();
-        for (Store.C c : all)
-            rows.add(c.id + " · " + c.category + " · urg " + c.urg
-                    + (c.synced ? " · synced" : " · QUEUED") + " · " + langName(c.lang)
-                    + "\n" + preview(c.text));
-        if (rows.isEmpty()) rows.add("Nothing filed yet.");
+    private void renderHistory(final List<Store.C> all) {
+        histList.setAdapter(new android.widget.BaseAdapter() {
+            @Override public int getCount() { return all.isEmpty() ? 1 : all.size(); }
+            @Override public Object getItem(int p) { return null; }
+            @Override public long getItemId(int p) { return p; }
+            @Override public View getView(int p, View cv, ViewGroup parent) {
+                View v = cv != null ? cv : getLayoutInflater().inflate(R.layout.row_ticket, parent, false);
+                TextView pill = v.findViewById(R.id.row_pill);
+                TextView title = v.findViewById(R.id.row_title);
+                TextView sub = v.findViewById(R.id.row_sub);
+                TextView chip = v.findViewById(R.id.row_chip);
+                if (all.isEmpty()) {
+                    pill.setText("–");
+                    pill.setBackgroundResource(R.drawable.pill_s3);
+                    pill.setTextColor(0xFF8B96A8);
+                    title.setText("Nothing filed yet");
+                    sub.setText("Intake tab → type a complaint in any language → File complaint →");
+                    chip.setText("");
+                } else {
+                    Store.C c = all.get(p);
+                    pill.setText(c.severity);
+                    if ("S1".equals(c.severity)) { pill.setBackgroundResource(R.drawable.pill_s1); pill.setTextColor(0xFFFF5A5F); }
+                    else if ("S2".equals(c.severity)) { pill.setBackgroundResource(R.drawable.pill_s2); pill.setTextColor(0xFFF5C518); }
+                    else { pill.setBackgroundResource(R.drawable.pill_s3); pill.setTextColor(0xFF8B96A8); }
+                    title.setText(c.id + " · " + langName(c.lang));
+                    sub.setText(preview(c.text));
+                    chip.setText(c.synced ? "synced ✓" : "QUEUED");
+                    chip.setTextColor(c.synced ? 0xFF3DDC84 : 0xFFF5C518);
+                }
+                return v;
+            }
+        });
         histList.setOnItemClickListener((p, v, pos, id2) -> {
             if (pos >= all.size()) return;
             Store.C c = all.get(pos);
@@ -434,10 +525,25 @@ public class MainActivity extends Activity {
     }
 
     private void attemptSync() {
-        int n = store.drainOutbox();
-        toast(n > 0 ? "Outbox drained: " + n + " ticket(s) → synced ✓ (simulated transport, contract-ready)"
-                    : "Outbox already empty — everything synced");
-        refresh();
+        final List<Store.C> queued = store.queuedList();
+        if (queued.isEmpty()) { toast("Outbox empty — everything is already synced ✓"); refresh(); return; }
+        toast("Draining " + queued.size() + " ticket(s) to the backend…");
+        bg.execute(() -> {
+            Sync.Result r = Sync.drain(endpoint(), queued, deviceId());
+            if (r.reached && !r.acked.isEmpty()) store.markSynced(r.acked);
+            final int acked = r.acked.size();
+            final String err = r.error;
+            ui.post(() -> {
+                if (r.reached && acked == queued.size()) {
+                    toast("✓ Outbox drained — " + acked + " ticket(s) acked by the backend");
+                } else if (r.reached) {
+                    toast("Partial sync: " + acked + "/" + queued.size() + " acked — the rest stay queued");
+                } else {
+                    toast("Backend unreachable (" + err + ") — " + queued.size() + " ticket(s) stay queued on-device. That's the offline-first design: nothing is lost.");
+                }
+                refresh();
+            });
+        });
     }
 
     // ---------------------------------------------------------------- small utils

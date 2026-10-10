@@ -68,6 +68,31 @@ public class Store extends SQLiteOpenHelper {
         }
     }
 
+    /** The outbox: every ticket not yet acked by the sync backend. */
+    List<C> queuedList() {
+        List<C> out = new ArrayList<>();
+        try (Cursor cur = getReadableDatabase().query("complaints", null, "synced=0",
+                null, null, null, "urg DESC, created DESC")) {
+            while (cur.moveToNext()) out.add(row(cur));
+        }
+        return out;
+    }
+
+    /** Flip only the ids the backend actually acked (partial success stays queued). */
+    void markSynced(List<String> ids) {
+        if (ids == null || ids.isEmpty()) return;
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        try {
+            ContentValues v = new ContentValues();
+            v.put("synced", 1);
+            for (String id : ids) db.update("complaints", v, "id=?", new String[]{id});
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
     /** Outbox drain (simulated transport — the same envelope contract a GMRC endpoint consumes). */
     int drainOutbox() {
         ContentValues v = new ContentValues();

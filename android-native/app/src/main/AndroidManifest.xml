@@ -2,9 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.mihir.fariyadnative"
     android:versionCode="1"
-    android:versionName="2.1">
+    android:versionName="2.2">
 
-    <!-- Native app: zero permissions, zero network, zero WebView. -->
+    <!-- Offline-first: the ONE permission is INTERNET — used only to drain the
+         outbox to the sync backend when connectivity returns. Everything else
+         (filing, triage, replies, storage) works with airplane mode on. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="34"/>
 
     <application
@@ -13,6 +17,7 @@
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="true"
         android:extractNativeLibs="true"
+        android:usesCleartextTraffic="false"
         android:theme="@android:style/Theme.Material.NoActionBar">
 
         <activity

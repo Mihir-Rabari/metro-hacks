@@ -1,0 +1,15 @@
+{
+  "name": "fariyad-backend",
+  "version": "1.0.0",
+  "description": "Fariyad sync backend — Node.js + MongoDB. Receives outbox drains from the offline-first Android app (POST /api/sync) and serves a live control-room dashboard.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:embedded": "MONGO_EMBEDDED=1 node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongodb": "^6.12.0",
+    "mongodb-memory-server": "^10.1.2"
+  }
+}
