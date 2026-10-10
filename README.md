@@ -1,8 +1,40 @@
 # 🚇 ફરિયાદ · Fariyad — Every Complaint Heard (PS-07)
 
+[![CI — APK build](https://github.com/Mihir-Rabari/metro-hacks/actions/workflows/apk.yml/badge.svg)](https://github.com/Mihir-Rabari/metro-hacks/actions/workflows/apk.yml)
+[![Release](https://img.shields.io/badge/release-Fariyad.apk-345bb4?logo=github)](https://github.com/Mihir-Rabari/metro-hacks/releases/tag/apk-latest)
+![Offline](https://img.shields.io/badge/works_in-airplane_mode-22d3ee)
+![Ensemble](https://img.shields.io/badge/held--out_ensemble-86.4%25-34d399)
+![Languages](https://img.shields.io/badge/complaints-ગુજ·हिं·EN·Gujlish-a78bfa)
+
 **Metro Hacks — Road to DevFest Gandhinagar 2026**, built on board the Gujarat
 Metro (Mahatma Mandir ⇄ APMC, 10 Oct 2026). First-ever hackathon on a running
 metro train in Gujarat. Solo build.
+
+> **One line:** an offline-first grievance console for GMRC — two AI engines
+> triage complaints in Gujarati, Hindi, English or Gujlish **fully on-device**,
+> route them to department queues with urgency scores, draft replies in the
+> complainant's language, and sync when the train reaches a station.
+
+```mermaid
+flowchart LR
+    A["🗣️ Complaint<br/>ગુજરાતી / हिंदी / English / Gujlish"] --> B["🧠 Dual-engine triage<br/>NB 79.5% + mMiniLM 70.5%<br/>→ ensemble 86.4%"]
+    B --> C["🗂️ 11 dept queues<br/>urgency 0–100 · S1 = 15-min SLA"]
+    B --> D["✉️ Draft reply<br/>in complainant's language"]
+    C --> E[("📱 IndexedDB + outbox<br/>airplane-mode proof")]
+    D --> E
+    E -.->|"drains when the train<br/>reaches a station"| F["🏢 GMRC backend<br/>(pilot contract)"]
+```
+
+## 📚 Documentation & receipts — start here
+
+| Doc | What's inside |
+|---|---|
+| **[docs/architecture.html](docs/architecture.html)** | 🎨 The big dark-theme architecture diagram (opens in any browser, works offline — obviously) |
+| **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** | System + sequence + state + CI diagrams (GitHub-rendered mermaid), and the "why" behind every design decision |
+| **[docs/MODELS.md](docs/MODELS.md)** | Model cards for all 6 models, held-out benchmark table, honest error analysis with per-engine predictions |
+| **[docs/DATA.md](docs/DATA.md)** | Dataset inventory: what's real 🟢 / approximated 🟡 / modeled 🟠 — row counts, sizes, sources |
+| **[data/assumptions.md](data/assumptions.md)** | The original honesty doc: sources, error bounds, why each modeling choice is defensible |
+| **[RUNBOOK.md](RUNBOOK.md)** | Tonight's ops protocol, 90-second demo script, pitch skeletons, submission copy-paste |
 
 **Problem chosen: PS-07 · Every Complaint Heard** (Metro Operations · **Offline operation: Required** — judges test it in airplane mode).
 
@@ -34,7 +66,18 @@ metro train in Gujarat. Solo build.
 Rebuild after edits: `python3 scripts/bake.py ps07` → `dist/app.html`.
 Dev mode: `python3 -m http.server` → `templates/ps07/index.html`.
 
-## 🤖 The AI (meaningful, not decoration)
+## 🤖 The AI (meaningful, not decoration) — the model roster
+
+| # | Model | Type | Runs | Born in |
+|---|---|---|---|---|
+| 1 | fariyad-nb | Multinomial naive Bayes, unigrams+bigrams | on-device JS, <1 ms | `scripts/train_triage.py` |
+| 2 | fariyad-neural | [`Xenova/paraphrase-multilingual-MiniLM-L12-v2`](https://huggingface.co/Xenova/paraphrase-multilingual-MiniLM-L12-v2) ONNX q8 (118 MB) + centroid head | on-device WASM | pulled from HuggingFace — no fine-tune needed |
+| 3 | fariyad-ensemble | Margin-gated router (NB leads; neural rescues when NB unsure) | on-device | `scripts/eval_neural.py` |
+| 4 | crowding tree | CART regression (occupancy %) | on-device JSON walk | `scripts/train_crowding.py` (ops demo) |
+| 5 | urgency scorer | S1/S2/S3 severity + hazard keyword lexicon | on-device, auditable rules | `templates/ps07/index.html` |
+| 6 | script detector | Gujarati / Devanagari / Latin → language + Gujlish handling | on-device, auditable rules | `templates/ps07/index.html` |
+
+**Full model cards + per-error analysis: [docs/MODELS.md](docs/MODELS.md).**
 
 - **Multilingual triage** — multinomial naive Bayes over Gujarati, Devanagari and Latin
   scripts (unigrams + bigrams), **1,248 training examples, 11 categories** (including the
@@ -65,12 +108,16 @@ browser; the sync layer reuses GMRC's existing backend contract.
 ## 📦 Repo map
 
 ```
-dist/app.html    ← DEMO THIS (single file, 684 KB, zero network refs — verified)
+dist/app.html    ← DEMO THIS (single file, 688 KB, zero network refs — verified)
 dist/ops.html    bonus: MetroOps console demo (fault triage board)
 dist/city.html   bonus: Interchange companion (offline map, bus math)
-templates/ps07/  Fariyad source    kit/  design system + store + AI runtime + vendored libs
-models/          triage.json (11 depts × 3 scripts)   scripts/  training + bake pipeline
+templates/ps07/  Fariyad source
+kit/             design system + store + AI runtime + vendored libs (Leaflet, Chart)
+android/         Java WebView app — AssetServer fake-origin, zero INTERNET permission
+models/          triage NB · eval.json (benchmark receipts) · crowding tree
+scripts/         train · bake · eval — the full pipeline, reproducible end to end
 data/            stations (real) · complaints-seed · replies · assumptions.md
+docs/            ARCHITECTURE.md · MODELS.md · DATA.md · architecture.html (diagram)
 RUNBOOK.md       tonight's ops protocol + demo script + pitch
 ```
 

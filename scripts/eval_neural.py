@@ -186,7 +186,8 @@ print(f"\nsaved {CENTROID_OUT}")
 json.dump({
     "meta": {
         "note": "Honest held-out comparison: naive Bayes vs HF multilingual MiniLM (centroid) vs ensemble. "
-                "Ensemble rule fixed in advance: neural wins on cosine >= 0.35, else NB.",
+                "Ensemble rule fixed in advance: neural wins when the NB log-likelihood margin < 2.0 "
+                "(i.e. NB's top category is not at least ~7.4x more likely than the runner-up); else NB.",
         "holdoutSize": len(HOLDOUT),
         "model": MODEL_NAME,
     },
