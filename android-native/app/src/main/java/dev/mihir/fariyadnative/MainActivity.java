@@ -521,7 +521,6 @@ public class MainActivity extends Activity {
                         toast("Reply copied");
                     }).show();
         });
-        histList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, rows));
     }
 
     private void attemptSync() {
